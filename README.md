@@ -2,7 +2,7 @@
 
 
 ## Current projects on GitHub
-### Capacity Building for NGS data analysis
+#### Capacity Building for NGS data analysis
 - [Creating a phylogenetic tree from 1000 Genome data](https://benbowlab.github.io/Benin-NGS/)
 - Analyzing 16S rRNA data (In Progress)
 
