@@ -2,7 +2,6 @@ name: "Benbow Lab"
 output_dir: "."
 navbar:
   title: "Benbow Lab"
-  type: inverse
   left:
     - text: "Home"
       href: index.html
