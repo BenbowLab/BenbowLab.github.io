@@ -4,7 +4,7 @@
 ## Current projects on GitHub
 #### Capacity Building for NGS data analysis
 - [Creating a phylogenetic tree from 1000 Genome data](https://benbowlab.github.io/Benin-NGS/)
-- Analyzing 16S rRNA data (In Progress)
+#### Analyzing 16S rRNA data (In Progress)
 
 # Contact Information
  Our lab homepage is located [here](http://www.benbowlab.ent.msu.edu/index.html) 
