@@ -1,0 +1,12 @@
+name: "Benbow Lab"
+output_dir: "."
+navbar:
+  title: "Benbow Lab"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+output:
+  html_document:
+    theme: flatly

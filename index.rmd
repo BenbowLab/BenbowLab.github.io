@@ -1,0 +1,20 @@
+---
+  title: "Welcome to the Benbow Lab GitHub page"
+---
+  
+  ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+For more information see our site at [MSU](http://www.benbowlab.ent.msu.edu/index.html)
+
+
+# Current Projects on GitHub
+-[Phylogeny from 1000 Genome Data](https://benbowlab.github.io/Benin-NGS/)
+
+-I6S rRNA data analysis (In Progress)
+
+
+Updated On  `r Sys.Date()`
