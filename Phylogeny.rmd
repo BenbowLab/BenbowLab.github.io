@@ -2,7 +2,10 @@
 title: "Creating a phylogeny from the 1000 Genome Database"
 author: "JReceveur"
 date: "June 11, 2017"
-output: html_document
+output:
+    html_document:
+      toc: true
+      toc_float: true
 ---
   
   ```{r setup, include=FALSE}

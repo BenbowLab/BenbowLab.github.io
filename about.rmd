@@ -1,5 +1,9 @@
 ---
 title: "About the Benbow Lab"
+output:
+    html_document:
+      toc: true
+      toc_float: true
 ---
 
 The National Microbiome Initiative provides a clear impetus that understanding the microbiome of humans and the environment has unique potential to influence scientific discovery and impact many aspects of the human condition. These impacts have been initially identified for areas of research such as chronic disease, food security, and ecosystem services; however, more intense mechanistic investigation is necessary for a deeper understanding of how the discoveries of the microbiome challenge traditional understanding and investigation in many other disciplines.

@@ -1,6 +1,10 @@
 ---
 title: "Aquatic Ecosystems"
 description: "Aquatic Entomology Project Focuses"
+output:
+    html_document:
+      toc: true
+      toc_float: true
 ---
 
 Aquatic habitats contribute to ecosystem processes in every biome of Earth. In these systems there are notable bottom-up and top-down controls that often work synergistically to regulate ecosystem function and resilience to perturbations. Aquatic studies in the Benbow Lab are addressing mechanistic questions at several scales of inquiry. These studies range from top-down control of epiphytic biofilm development to collaborative efforts quantifying the role of hydraulic habitat templates on macroinvertebrate community assembly and the influence of native riparian plants on in-stream ecosystem processes. Additional studies are on-going in the Republic of Palau in understanding the factors that influence the resilience or change of watersheds to land use degradation and developing unique bioassessment methods to monitor such ecosystem responses.
