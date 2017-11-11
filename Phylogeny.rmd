@@ -2,7 +2,6 @@
 title: "Creating a phylogeny from the 1000 Genome Database"
 author: "JReceveur"
 date: "June 11, 2017"
-code_folding: hide
 output:
   html_document:
     toc: true

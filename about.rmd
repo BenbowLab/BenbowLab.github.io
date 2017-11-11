@@ -1,5 +1,6 @@
 ---
 title: "About the Benbow Lab"
+description: "Benbow Lab"
 output:
   html_document:
     toc: true
@@ -10,4 +11,6 @@ The National Microbiome Initiative provides a clear impetus that understanding t
 
 #Background and Approach
 The research in my lab investigates the microbiome of humans, animals and the environment by taking innovative approaches for understanding the importance of entire microbial communities to human health, forensics and ecological systems. To accomplish these goals, we take a systems approach and collaborate with an interdisciplinary team of scientists with expertise ranging from pathogenic microbiology to agent-based mathematical modeling, chemical engineering, and behavior to take findings from basic, fundamental studies for answering innovative applied research questions. Our collaborative team and systems approach integrates expertise in a way that identifies mechanisms of how entire microbial assemblages can influence specific microbial taxa (or their genomes) and act as ‘signatures’ in forensic investigations, infectious disease responses, antimicrobial resistance profiles, and dictate ecological foodwebs and species networks.  We also identify the biological mechanisms that produce these signatures to inform future translation studies.
-The Benbow Lab at MSU is seeking contact with researchers doing human decomposition studies in this USA or abroad.  We are particularly interested in potentially working with scientists with a mutual interest in insect-microbe interactions. For those interested please contact Dr. Eric Benbow (benbow@msu.edu).
+The Benbow Lab at MSU is seeking contact with researchers doing human decomposition studies in this USA or abroad.  We are particularly interested in potentially working with scientists with a mutual interest in insect-microbe interactions. 
+#Contact Info
+For those interested please contact Dr. Eric Benbow (benbow@msu.edu).
