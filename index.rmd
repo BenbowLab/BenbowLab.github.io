@@ -1,6 +1,6 @@
 ---
-  title: "Benbow Lab GitHub page"
-  description: "Benbow Microbiome and Microbial Ecology Lab at Michigan State University."
+title: "Benbow Lab GitHub page"
+description: "Benbow Microbiome and Microbial Ecology Lab at Michigan State University."
 output:
   html_document:
     toc: true
@@ -20,6 +20,7 @@ For more information see our about page or our site at [MSU](http://www.benbowla
 -<a href=https://benbowlab.github.io/Benin-NGS/ target="_blank">Phylogeny from 1000 Genome Data</a>
 
 -I6S rRNA data analysis (In Progress)
+
 #Ongoing Projects
 
 Updated On  `r Sys.Date()`
