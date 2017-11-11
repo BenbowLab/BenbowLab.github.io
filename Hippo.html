@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="JReceveur" />
+
+
+<title>Hippo example</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlightingOnLoad(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Benbow Lab</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Phylogeny.html">Phylogeny from VCF file</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Research Focuses
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Aquatics.html">Aquatic Ecosystems</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Hippo example</h1>
+<h4 class="author"><em>JReceveur</em></h4>
+<h4 class="date"><em>May 8, 2017</em></h4>
+
+</div>
+
+
+<div id="package-install" class="section level1">
+<h1>Package Install</h1>
+<p>If you need to install the packages remove the #, once the packages are installed, you do not need to run this step again</p>
+<pre class="r"><code>#source(&#39;http://bioconductor.org/biocLite.R&#39;)
+#biocLite(&#39;phyloseq&#39;)
+#install.packages(&quot;ggplot2&quot;)
+#install.packages(&quot;vegan&quot;)
+packageVersion(&#39;phyloseq&#39;)</code></pre>
+<pre><code>## [1] &#39;1.22.3&#39;</code></pre>
+</div>
+<div id="data-import" class="section level1">
+<h1>Data import</h1>
+<p>Download the data file. You can either browse for the datafile with the first import command(just remove the #), or specify the path name (Yours will depend on where you saved your file).The datafile already has the metadata, taxonomy, and abundances joined together for all taxonomic levels. Load the phyloseq package and ggplots2 and set the plotting theme.</p>
+<pre class="r"><code>library(phyloseq)
+library(ggplot2)
+library(vegan)</code></pre>
+<pre><code>## Loading required package: permute</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## This is vegan 2.4-4</code></pre>
+<pre class="r"><code>theme_set(theme_bw())
+#biom=import_biom(file.choose(),parseFunction=parse_taxonomy_greengenes)
+biom=import_biom(&#39;C:\\Users\\Joe Receveur\\Documents\\GitHub\\WallaceHippo\\hipp.biom&#39;,parseFunction=parse_taxonomy_greengenes) 
+biom</code></pre>
+<pre><code>## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 238 taxa and 14 samples ]
+## sample_data() Sample Data:       [ 14 samples by 4 sample variables ]
+## tax_table()   Taxonomy Table:    [ 238 taxa by 11 taxonomic ranks ]</code></pre>
+<p>Since the .biom file already has metadata added, lets check and see what the samples are named and what variables are in the metadata.</p>
+<pre class="r"><code>sample_names(biom)</code></pre>
+<pre><code>##  [1] &quot;Hipp5&quot;  &quot;Hipp8&quot;  &quot;Hipp6&quot;  &quot;Hipp11&quot; &quot;Hipp1&quot;  &quot;Hipp9&quot;  &quot;Hipp13&quot;
+##  [8] &quot;Hipp14&quot; &quot;Hipp10&quot; &quot;Hipp3&quot;  &quot;Hipp12&quot; &quot;Hipp2&quot;  &quot;Hipp4&quot;  &quot;Hipp7&quot;</code></pre>
+<pre class="r"><code>sample_variables(biom)</code></pre>
+<pre><code>## [1] &quot;BarcodeSequence&quot;      &quot;Description&quot;          &quot;LinkerPrimerSequence&quot;
+## [4] &quot;Species&quot;</code></pre>
+<p>Since one of the sample variables is Species, we’ll remove some confusion since there is also a taxonomic rank called Species by creating a new variable “Bird Species” and look at the metadata again just to be sure everything matches up.</p>
+<pre class="r"><code>sample_data(biom)$BirdSpecies=sample_data(biom)$Species
+sample_variables(biom)</code></pre>
+<pre><code>## [1] &quot;BarcodeSequence&quot;      &quot;Description&quot;          &quot;LinkerPrimerSequence&quot;
+## [4] &quot;Species&quot;              &quot;BirdSpecies&quot;</code></pre>
+<pre class="r"><code>#sample_data(biom) use this command to see all the metadata</code></pre>
+</div>
+<div id="visualizing-the-raw-sample-data" class="section level1">
+<h1>Visualizing the raw sample data</h1>
+<p>Before we try to do anything, its probably a good idea to look at a plot of the raw data. Once you plot the data, you’ll see that the vast majority of the samples are from the family Enterobacteriaceae and that the total abundances for the samples don’t add up. We’ll change that in a bit. You’ll also see a warning message about the species variable being changed but you can ignore it.</p>
+<pre class="r"><code>plot_bar(biom, &quot;BirdSpecies&quot;,&quot;Abundance&quot;, &quot;Family&quot;)</code></pre>
+<pre><code>## Warning in psmelt(physeq): The sample variables: 
+## Species
+##  have been renamed to: 
+## sample_Species
+## to avoid conflicts with taxonomic rank names.</code></pre>
+<p><img src="Hippo_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div id="removing-enterobacteria" class="section level2">
+<h2>Removing Enterobacteria</h2>
+<p>Now we’ll look at the data with Enterobacteria removed. When you run the noentero command, you can see a difference in the taxa in the OTU table compared to previously. If you would like a subset only from one family use the command Family==“Staphylococcaceae” for example.</p>
+<pre class="r"><code>noentero=subset_taxa(biom, Family!=&quot;Enterobacteriaceae&quot;)
+
+noentero</code></pre>
+<pre><code>## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 126 taxa and 14 samples ]
+## sample_data() Sample Data:       [ 14 samples by 5 sample variables ]
+## tax_table()   Taxonomy Table:    [ 126 taxa by 11 taxonomic ranks ]</code></pre>
+<p>When we plot the data with Enterobacteriacea removed, notice how much smaller the abundance values are than the previous plot and the differences in taxa compared to the biom file.</p>
+<pre class="r"><code>plot_bar(noentero, &quot;BirdSpecies&quot;,&quot;Abundance&quot;, &quot;Family&quot;)</code></pre>
+<pre><code>## Warning in psmelt(physeq): The sample variables: 
+## Species
+##  have been renamed to: 
+## sample_Species
+## to avoid conflicts with taxonomic rank names.</code></pre>
+<p><img src="Hippo_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+</div>
+<div id="relative-abundances" class="section level1">
+<h1>Relative Abundances</h1>
+<p>Now we’ll normalize each sample to turn it into relative abundances for each sample. The second transform sample counts will turn the filtered data back into 100% abundances, if you leave it out and then plot, its a good way to see how much abundance the filtering is removing.</p>
+<pre class="r"><code>Hipp  = transform_sample_counts(noentero, function(x) x / sum(x) ) 
+Hipp = filter_taxa(Hipp, function(x) mean(x) &gt; 1e-2, TRUE) 
+HippFiltered  = transform_sample_counts(Hipp, function(x) x / sum(x) )
+HippFiltered</code></pre>
+<pre><code>## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 26 taxa and 14 samples ]
+## sample_data() Sample Data:       [ 14 samples by 5 sample variables ]
+## tax_table()   Taxonomy Table:    [ 26 taxa by 11 taxonomic ranks ]</code></pre>
+<pre class="r"><code>sample_variables(HippFiltered)</code></pre>
+<pre><code>## [1] &quot;BarcodeSequence&quot;      &quot;Description&quot;          &quot;LinkerPrimerSequence&quot;
+## [4] &quot;Species&quot;              &quot;BirdSpecies&quot;</code></pre>
+<p>With the next bit of code, you’ll see that the Abundances are in multiples of one, it just depends on how many samples there was from each bird species.</p>
+<pre class="r"><code>plot_bar(HippFiltered,&quot;BirdSpecies&quot;, &quot;Abundance&quot;,&quot;Family&quot;)</code></pre>
+<pre><code>## Warning in psmelt(physeq): The sample variables: 
+## Species
+##  have been renamed to: 
+## sample_Species
+## to avoid conflicts with taxonomic rank names.</code></pre>
+<p><img src="Hippo_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Now we’ll merge together all the samples from within a bird species to get an average.The merge function renames the samples by the variable Species so we have to add it back in as a sample variable after merging. You’ll see a warning message NAS introduced… after the first step but the second step “repairs” the metadata.</p>
+<pre class="r"><code>Merged=merge_samples(HippFiltered, &quot;Species&quot;)
+sample_data(Merged)$BirdSpecies &lt;- factor(sample_names(Merged)) 
+Merged=transform_sample_counts(Merged,function(x) 100 * x/sum(x))</code></pre>
+<p>Now we’ll plot relative abundance by each bird species.</p>
+<pre class="r"><code>plot_bar(Merged, &quot;BirdSpecies&quot;, &quot;Abundance&quot;, &quot;Family&quot;)</code></pre>
+<pre><code>## Warning in psmelt(physeq): The sample variables: 
+## Species
+##  have been renamed to: 
+## sample_Species
+## to avoid conflicts with taxonomic rank names.</code></pre>
+<p><img src="Hippo_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="nmds-plots" class="section level1">
+<h1>NMDS plots</h1>
+<p>Now, we’ll make some NMDS plots of the data using bray curtis. First, we need to run the ordination.For more detailed distance options see <a href="https://joey711.github.io/phyloseq/distance.html" class="uri">https://joey711.github.io/phyloseq/distance.html</a></p>
+<pre class="r"><code>Hipp.ord=ordinate(HippFiltered, &quot;NMDS&quot;, &quot;bray&quot;)</code></pre>
+<pre><code>## Run 0 stress 0.1237196 
+## Run 1 stress 0.1494946 
+## Run 2 stress 0.1359681 
+## Run 3 stress 0.1620843 
+## Run 4 stress 0.149495 
+## Run 5 stress 0.1237154 
+## ... New best solution
+## ... Procrustes: rmse 0.00260888  max resid 0.005491383 
+## ... Similar to previous best
+## Run 6 stress 0.1359682 
+## Run 7 stress 0.1423653 
+## Run 8 stress 0.1472444 
+## Run 9 stress 0.1237163 
+## ... Procrustes: rmse 0.0004349895  max resid 0.0009494675 
+## ... Similar to previous best
+## Run 10 stress 0.121539 
+## ... New best solution
+## ... Procrustes: rmse 0.2025591  max resid 0.384688 
+## Run 11 stress 0.1237169 
+## Run 12 stress 0.1215375 
+## ... New best solution
+## ... Procrustes: rmse 0.0003923892  max resid 0.001040379 
+## ... Similar to previous best
+## Run 13 stress 0.121539 
+## ... Procrustes: rmse 0.00480735  max resid 0.0124815 
+## Run 14 stress 0.1484259 
+## Run 15 stress 0.1215376 
+## ... Procrustes: rmse 0.004418051  max resid 0.01148416 
+## Run 16 stress 0.1557352 
+## Run 17 stress 0.1215393 
+## ... Procrustes: rmse 0.004867079  max resid 0.01265326 
+## Run 18 stress 0.1215449 
+## ... Procrustes: rmse 0.005488978  max resid 0.01418579 
+## Run 19 stress 0.1476949 
+## Run 20 stress 0.1423655 
+## *** Solution reached</code></pre>
+<p>Now we’ll plot the samples by Bird Species</p>
+<pre class="r"><code>plot_ordination(HippFiltered,Hipp.ord,type=&quot;samples&quot;,color=&quot;BirdSpecies&quot;)+geom_point(size=5)+ggtitle(&quot;NMDS by Bird Species&quot;)</code></pre>
+<p><img src="Hippo_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="plot-heatmap" class="section level1">
+<h1>plot heatmap</h1>
+<p>Now we’ll plot a heatmap by Bird Species and sort the samples as well. The default is to group samples by their distances, so if you want to see them by distance, remove the sample.order= command. You’ll see warning about infinite values as well but for now it can be ignored.</p>
+<pre class="r"><code>plot_heatmap(HippFiltered, &quot;NMDS&quot;,&quot;bray&quot;,&quot;BirdSpecies&quot;, &quot;Family&quot;, sample.order=&quot;BirdSpecies&quot;)</code></pre>
+<pre><code>## Warning in psmelt(physeq): The sample variables: 
+## Species
+##  have been renamed to: 
+## sample_Species
+## to avoid conflicts with taxonomic rank names.</code></pre>
+<pre><code>## Warning: Transformation introduced infinite values in discrete y-axis</code></pre>
+<p><img src="Hippo_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="permanova" class="section level1">
+<h1>PERMANOVA</h1>
+<p>For running a PERMANOVA we will need some functions from the vegan package</p>
+<pre class="r"><code>Hippdist=phyloseq::distance(HippFiltered, &quot;bray&quot;)</code></pre>
+<p>If we want to test for significant differences between bird species.For this preliminary dataset we probably don’t have enough power to see anything, but heres the code anyway.</p>
+<pre class="r"><code>adonis(Hippdist ~ BirdSpecies, as(sample_data(HippFiltered), &quot;data.frame&quot;))</code></pre>
+<pre><code>## 
+## Call:
+## adonis(formula = Hippdist ~ BirdSpecies, data = as(sample_data(HippFiltered),      &quot;data.frame&quot;)) 
+## 
+## Permutation: free
+## Number of permutations: 999
+## 
+## Terms added sequentially (first to last)
+## 
+##             Df SumsOfSqs MeanSqs F.Model     R2 Pr(&gt;F)
+## BirdSpecies  4    0.8402 0.21005 0.65247 0.2248   0.97
+## Residuals    9    2.8973 0.32193         0.7752       
+## Total       13    3.7375                 1.0000</code></pre>
+</div>
+<div id="network-plot" class="section level1">
+<h1>Network plot</h1>
+<p>Heres a simple network plot of the bird samples showing the distance between samples.</p>
+<pre class="r"><code>plot_net(HippFiltered, color=&quot;BirdSpecies&quot;)</code></pre>
+<p><img src="Hippo_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>For more info on the phyloseq package visit joey711.github.io/phyloseq/</p>
+<pre><code>## R version 3.4.2 (2017-09-28)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 14393)
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=English_United States.1252 
+## [2] LC_CTYPE=English_United States.1252   
+## [3] LC_MONETARY=English_United States.1252
+## [4] LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.1252    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] vegan_2.4-4     lattice_0.20-35 permute_0.9-4   ggplot2_2.2.1  
+## [5] phyloseq_1.22.3
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.13        compiler_3.4.2      plyr_1.8.4         
+##  [4] XVector_0.18.0      iterators_1.0.8     tools_3.4.2        
+##  [7] zlibbioc_1.24.0     digest_0.6.12       tibble_1.3.4       
+## [10] jsonlite_1.5        evaluate_0.10.1     nlme_3.1-131       
+## [13] rhdf5_2.22.0        gtable_0.2.0        mgcv_1.8-20        
+## [16] pkgconfig_2.0.1     rlang_0.1.4         igraph_1.1.2       
+## [19] Matrix_1.2-11       foreach_1.4.3       yaml_2.1.14        
+## [22] parallel_3.4.2      stringr_1.2.0       knitr_1.17         
+## [25] cluster_2.0.6       Biostrings_2.46.0   S4Vectors_0.16.0   
+## [28] IRanges_2.12.0      multtest_2.34.0     stats4_3.4.2       
+## [31] rprojroot_1.2       ade4_1.7-8          grid_3.4.2         
+## [34] Biobase_2.38.0      data.table_1.10.4-3 survival_2.41-3    
+## [37] rmarkdown_1.7       reshape2_1.4.2      magrittr_1.5       
+## [40] MASS_7.3-47         splines_3.4.2       backports_1.1.1    
+## [43] scales_0.5.0        codetools_0.2-15    htmltools_0.3.6    
+## [46] BiocGenerics_0.24.0 biomformat_1.6.0    ape_5.0            
+## [49] colorspace_1.3-2    labeling_0.3        stringi_1.1.5      
+## [52] lazyeval_0.2.1      munsell_0.4.3</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

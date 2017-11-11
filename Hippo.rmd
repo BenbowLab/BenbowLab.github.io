@@ -1,0 +1,134 @@
+---
+title: "Hippo example"
+description: "16S tutorial using QIIME for microbial communities"
+author: "JReceveur"
+date: "May 8, 2017"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Package Install
+
+If you need to install the packages remove the #, once the packages are installed, you do not need to run this step again 
+```{r}
+#source('http://bioconductor.org/biocLite.R')
+#biocLite('phyloseq')
+#install.packages("ggplot2")
+#install.packages("vegan")
+packageVersion('phyloseq')
+```
+
+# Data import
+Download the data file. You can either browse for the datafile with the first import command(just remove the #), or specify the path name (Yours will depend on where you saved your file).The datafile already has the metadata, taxonomy, and abundances joined together for all taxonomic levels.
+ Load the phyloseq package and ggplots2 and set the plotting theme.
+ 
+```{r}
+library(phyloseq)
+library(ggplot2)
+library(vegan)
+theme_set(theme_bw())
+#biom=import_biom(file.choose(),parseFunction=parse_taxonomy_greengenes)
+biom=import_biom('C:\\Users\\Joe Receveur\\Documents\\GitHub\\WallaceHippo\\hipp.biom',parseFunction=parse_taxonomy_greengenes) 
+biom
+``` 
+Since the .biom file already has metadata added, lets check and see what the samples are named and what variables are in the metadata.
+```{r}
+sample_names(biom)
+sample_variables(biom)
+```
+Since one of the sample variables is Species, we'll remove some confusion since there is also a taxonomic rank called Species by creating a new variable "Bird Species" and look at the metadata again just to be sure everything matches up.
+```{r}
+sample_data(biom)$BirdSpecies=sample_data(biom)$Species
+sample_variables(biom)
+#sample_data(biom) use this command to see all the metadata
+```
+
+# Visualizing the raw sample data
+Before we try to do anything, its probably a good idea to look at a plot of the raw data. Once you plot the data, you'll see that the vast majority of the samples are from the family Enterobacteriaceae and that the total abundances for the samples don't add up. We'll change that in a bit. You'll also see a warning message about the species variable being changed but you can ignore it. 
+```{r}
+plot_bar(biom, "BirdSpecies","Abundance", "Family")
+```
+
+## Removing Enterobacteria
+Now we'll look at the data with Enterobacteria removed. When you run the noentero command, you can see a difference in the taxa in the OTU table compared to previously. If you would like a subset only from one family use the command Family=="Staphylococcaceae" for example.
+```{r}
+noentero=subset_taxa(biom, Family!="Enterobacteriaceae")
+
+noentero
+```
+When we plot the data with Enterobacteriacea removed, notice how much smaller the abundance values are than the previous plot and the differences in taxa compared to the biom file.
+```{r}
+plot_bar(noentero, "BirdSpecies","Abundance", "Family")
+```
+
+#Relative Abundances
+Now we'll normalize each sample to turn it into relative abundances for each sample. The second transform sample counts will turn the filtered data back into 100% abundances, if you leave it out and then plot, its a good way to see how much abundance the filtering is removing.
+```{r}
+Hipp  = transform_sample_counts(noentero, function(x) x / sum(x) ) 
+Hipp = filter_taxa(Hipp, function(x) mean(x) > 1e-2, TRUE) 
+HippFiltered  = transform_sample_counts(Hipp, function(x) x / sum(x) )
+HippFiltered
+sample_variables(HippFiltered)
+```
+With the next bit of code, you'll see that the Abundances are in multiples of one, it just depends on how many samples there was from each bird species.
+
+```{r}
+plot_bar(HippFiltered,"BirdSpecies", "Abundance","Family")
+```
+
+Now we'll merge together all the samples from within a bird species to get an average.The merge function renames the samples by the variable Species so we have to add it back in as a sample variable after merging. You'll see a warning message NAS introduced... after the first step but the second step "repairs" the metadata.
+```{r, warning=FALSE}
+Merged=merge_samples(HippFiltered, "Species")
+sample_data(Merged)$BirdSpecies <- factor(sample_names(Merged)) 
+Merged=transform_sample_counts(Merged,function(x) 100 * x/sum(x))
+```
+Now we'll plot relative abundance by each bird species.
+```{r}
+plot_bar(Merged, "BirdSpecies", "Abundance", "Family")
+```
+
+# NMDS plots
+Now, we'll make some NMDS plots of the data using bray curtis. First, we need to run the ordination.For more detailed distance options see https://joey711.github.io/phyloseq/distance.html
+```{r}
+Hipp.ord=ordinate(HippFiltered, "NMDS", "bray")
+```
+Now we'll plot the samples by Bird Species
+```{r}
+plot_ordination(HippFiltered,Hipp.ord,type="samples",color="BirdSpecies")+geom_point(size=5)+ggtitle("NMDS by Bird Species")
+
+```
+
+# plot heatmap
+Now we'll plot a heatmap by Bird Species and sort the samples as well. The default is to group samples by their distances, so if you want to see them by distance, remove the sample.order= command. You'll see warning about infinite values as well but for now it can be ignored.
+```{r}
+
+plot_heatmap(HippFiltered, "NMDS","bray","BirdSpecies", "Family", sample.order="BirdSpecies")
+```
+
+#PERMANOVA
+For running a PERMANOVA we will need some functions from the vegan package
+```{r}
+Hippdist=phyloseq::distance(HippFiltered, "bray")
+```
+If we want to test for significant differences between bird species.For this preliminary dataset we probably don't have enough power to see anything, but heres the code anyway. 
+```{r}
+adonis(Hippdist ~ BirdSpecies, as(sample_data(HippFiltered), "data.frame"))
+
+```
+
+#Network plot
+Heres a simple network plot of the bird samples showing the distance between samples. 
+```{r}
+plot_net(HippFiltered, color="BirdSpecies")
+```
+
+For more info on the phyloseq package visit joey711.github.io/phyloseq/
+```{r, echo=FALSE}
+sessionInfo()
+```

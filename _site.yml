@@ -17,6 +17,8 @@ navbar:
       menu:
         - text: "Phylogeny from VCF file"
           href: Phylogeny.html
+        - text: "16S Analysis Example"
+          href: Hippo.html
     - text: "Research Focuses"
       menu:
         - text: "Aquatic Ecosystems"
