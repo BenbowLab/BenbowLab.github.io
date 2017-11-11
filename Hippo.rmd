@@ -1,5 +1,5 @@
 ---
-title: "Hippo example"
+title: "16S data analysis example"
 description: "16S tutorial using QIIME for microbial communities"
 author: "JReceveur"
 date: "May 8, 2017"

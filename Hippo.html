@@ -12,7 +12,7 @@
 <meta name="author" content="JReceveur" />
 
 
-<title>Hippo example</title>
+<title>16S data analysis example</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -292,6 +292,9 @@ div.tocify {
     <li>
       <a href="Phylogeny.html">Phylogeny from VCF file</a>
     </li>
+    <li>
+      <a href="Hippo.html">16S Analysis Example</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -318,7 +321,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Hippo example</h1>
+<h1 class="title toc-ignore">16S data analysis example</h1>
 <h4 class="author"><em>JReceveur</em></h4>
 <h4 class="date"><em>May 8, 2017</em></h4>
 
@@ -436,40 +439,38 @@ Merged=transform_sample_counts(Merged,function(x) 100 * x/sum(x))</code></pre>
 <p>Now, we’ll make some NMDS plots of the data using bray curtis. First, we need to run the ordination.For more detailed distance options see <a href="https://joey711.github.io/phyloseq/distance.html" class="uri">https://joey711.github.io/phyloseq/distance.html</a></p>
 <pre class="r"><code>Hipp.ord=ordinate(HippFiltered, &quot;NMDS&quot;, &quot;bray&quot;)</code></pre>
 <pre><code>## Run 0 stress 0.1237196 
-## Run 1 stress 0.1494946 
-## Run 2 stress 0.1359681 
-## Run 3 stress 0.1620843 
-## Run 4 stress 0.149495 
-## Run 5 stress 0.1237154 
+## Run 1 stress 0.1557353 
+## Run 2 stress 0.1215456 
 ## ... New best solution
-## ... Procrustes: rmse 0.00260888  max resid 0.005491383 
-## ... Similar to previous best
-## Run 6 stress 0.1359682 
-## Run 7 stress 0.1423653 
-## Run 8 stress 0.1472444 
-## Run 9 stress 0.1237163 
-## ... Procrustes: rmse 0.0004349895  max resid 0.0009494675 
-## ... Similar to previous best
-## Run 10 stress 0.121539 
+## ... Procrustes: rmse 0.2011982  max resid 0.3752674 
+## Run 3 stress 0.1215409 
 ## ... New best solution
-## ... Procrustes: rmse 0.2025591  max resid 0.384688 
-## Run 11 stress 0.1237169 
-## Run 12 stress 0.1215375 
-## ... New best solution
-## ... Procrustes: rmse 0.0003923892  max resid 0.001040379 
+## ... Procrustes: rmse 0.0007569905  max resid 0.001912477 
 ## ... Similar to previous best
-## Run 13 stress 0.121539 
-## ... Procrustes: rmse 0.00480735  max resid 0.0124815 
-## Run 14 stress 0.1484259 
-## Run 15 stress 0.1215376 
-## ... Procrustes: rmse 0.004418051  max resid 0.01148416 
-## Run 16 stress 0.1557352 
-## Run 17 stress 0.1215393 
-## ... Procrustes: rmse 0.004867079  max resid 0.01265326 
-## Run 18 stress 0.1215449 
-## ... Procrustes: rmse 0.005488978  max resid 0.01418579 
-## Run 19 stress 0.1476949 
-## Run 20 stress 0.1423655 
+## Run 4 stress 0.1475528 
+## Run 5 stress 0.1675967 
+## Run 6 stress 0.1215342 
+## ... New best solution
+## ... Procrustes: rmse 0.003629758  max resid 0.009412449 
+## ... Similar to previous best
+## Run 7 stress 0.1215365 
+## ... Procrustes: rmse 0.00122879  max resid 0.003162949 
+## ... Similar to previous best
+## Run 8 stress 0.1484238 
+## Run 9 stress 0.1237192 
+## Run 10 stress 0.148437 
+## Run 11 stress 0.1215414 
+## ... Procrustes: rmse 0.003638536  max resid 0.009409709 
+## ... Similar to previous best
+## Run 12 stress 0.1423667 
+## Run 13 stress 0.1237154 
+## Run 14 stress 0.1359681 
+## Run 15 stress 0.1496386 
+## Run 16 stress 0.135968 
+## Run 17 stress 0.1286316 
+## Run 18 stress 0.1543173 
+## Run 19 stress 0.1237162 
+## Run 20 stress 0.1475533 
 ## *** Solution reached</code></pre>
 <p>Now we’ll plot the samples by Bird Species</p>
 <pre class="r"><code>plot_ordination(HippFiltered,Hipp.ord,type=&quot;samples&quot;,color=&quot;BirdSpecies&quot;)+geom_point(size=5)+ggtitle(&quot;NMDS by Bird Species&quot;)</code></pre>
@@ -503,7 +504,7 @@ Merged=transform_sample_counts(Merged,function(x) 100 * x/sum(x))</code></pre>
 ## Terms added sequentially (first to last)
 ## 
 ##             Df SumsOfSqs MeanSqs F.Model     R2 Pr(&gt;F)
-## BirdSpecies  4    0.8402 0.21005 0.65247 0.2248   0.97
+## BirdSpecies  4    0.8402 0.21005 0.65247 0.2248  0.967
 ## Residuals    9    2.8973 0.32193         0.7752       
 ## Total       13    3.7375                 1.0000</code></pre>
 </div>
