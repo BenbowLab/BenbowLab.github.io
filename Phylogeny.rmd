@@ -2,10 +2,12 @@
 title: "Creating a phylogeny from the 1000 Genome Database"
 author: "JReceveur"
 date: "June 11, 2017"
+code_folding: hide
 output:
-    html_document:
-      toc: true
-      toc_float: true
+  html_document:
+    toc: true
+    toc_float: true
+
 ---
   
   ```{r setup, include=FALSE}
@@ -13,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Creating a Dendrogram from a  downloaded VCF file
-This document provides an example of creating a dendrogram from a VCF file. The VCF file can be altered using VCFtools to look at a specific area of the genome. The lines in red are the code you should enter, while the lines starting with ## are what you would expect to see for the output
+This document provides an example of creating a dendrogram from a VCF file. The VCF file can be altered using VCFtools to look at a specific area of the genome. The lines starting with ## are what you would expect to see for the output
 
 This document was created using Rmarkdown <http://rmarkdown.rstudio.com>.
 
