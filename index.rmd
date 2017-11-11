@@ -17,9 +17,12 @@ For more information see our about page or our site at [MSU](http://www.benbowla
 
 
 # Current Tutorials on GitHub
--<a href=https://benbowlab.github.io/Benin-NGS/ target="_blank">Phylogeny from 1000 Genome Data</a>
+-Phylogeny from 1000 Genome Data
 
--I6S rRNA data analysis (In Progress)
+-I6S rRNA data analysis
+
+#Recent Publications
+See [Google Scholar Page](https://scholar.google.com/citations?user=IKRkWHgAAAAJ&hl=en)
 
 #Ongoing Projects
 
