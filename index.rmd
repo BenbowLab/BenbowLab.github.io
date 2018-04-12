@@ -1,29 +1,30 @@
 ---
 title: "Benbow Lab GitHub page"
-description: "Benbow Microbiome and Microbial Ecology Lab at Michigan State University."
+description: "APPLIED ECOLOGY IN AQUATICS, DISEASE AND FORENSICS "
 output:
   html_document:
-    toc: true
-    toc_float: true
+    toc: false
 ---
   
   ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+[GitHub Page](https://github.com/BenbowLab)
+
+For more information and ongoing work see our lab page at [Benbow Lab](https://ericbenbow.wixsite.com/website)
 
 
+[Human Postmortem microbiome database](https://hpmmdatabase.wixsite.com/hpmmdatabase)
 
-For more information see our about page or our site at [MSU](http://www.benbowlab.ent.msu.edu/index.html)
+#Current annotated tutorials listed above (16S and SNP data)
 
+- Additional projects and code can be found on our [GitHub page](https://github.com/BenbowLab)
 
-# Current Tutorials on GitHub
--Phylogeny from 1000 Genome Data
-
--I6S rRNA data analysis
+- QIIME2 pipeline coming soon
 
 #Recent Publications
+
 See [Google Scholar Page](https://scholar.google.com/citations?user=IKRkWHgAAAAJ&hl=en)
 
-#Ongoing Projects
 
 Updated On  `r Sys.Date()`

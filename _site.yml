@@ -1,26 +1,23 @@
-name: "Benbow Lab"
-output_dir: "."
+name: Benbow Lab
+output_dir: .
 output:
   html_document:
-    toc: true
-    toc_float: true
+    toc: yes
+    toc_float: yes
     theme: flatly
-
+    lib_dir: site_libs
+    self_contained: no
 navbar:
-  title: "Benbow Lab"
+  title: Benbow Lab
   left:
-    - text: "Home"
-      href: index.html
-    - text: "About"
-      href: about.html
-    - text: "Tutorials"
-      menu:
-        - text: "Phylogeny from VCF file"
-          href: Phylogeny.html
-        - text: "16S Analysis Example"
-          href: Hippo.html
-    - text: "Research Focuses"
-      menu:
-        - text: "Aquatic Ecosystems"
-          href: Aquatics.html
+  - text: Home
+    href: index.html
+  - text: Tutorials
+    menu:
+    - text: Phylogeny from VCF file
+      href: Phylogeny.html
+    - text: 16S Analysis Insect communities
+      href: Hippo.html
+    - text: Spatial changes in human microbiome
+      href: Bswab.html
 
