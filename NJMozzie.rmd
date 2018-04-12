@@ -1,0 +1,43 @@
+---
+  title: "NJMozzieRmarkdown"
+author: "JReceveur"
+date: "April 12, 2018"
+output: html_document
+---
+  
+  ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#R code used
+
+##Citation:
+Receveur JP, Pechal JL, Benbow ME, Donato G, Rainey T, Wallace JR. 2018. Changes in Larval Mosquito Microbiota Reveal Non-target Effects of Insecticide Treatments in Hurricane-Created Habitats. Microb Ecol. 
+doi: 10.1007/s00248-018-1175-3
+
+```{r import}
+library(vegan)
+library(MASS)
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(magrittr)
+#library(mctoolsr)
+library(scales)
+library(grid)
+library(reshape2)
+library(phyloseq)
+library(randomForest)
+library(knitr)
+library(ape)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+  
+  ```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

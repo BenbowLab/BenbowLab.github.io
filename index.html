@@ -19,9 +19,6 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -166,101 +163,6 @@ $(document).ready(function () {
 
 
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -278,9 +180,6 @@ div.tocify {
         <li>
   <a href="index.html">Home</a>
 </li>
-<li>
-  <a href="about.html">About</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Tutorials
@@ -292,19 +191,10 @@ div.tocify {
       <a href="Phylogeny.html">Phylogeny from VCF file</a>
     </li>
     <li>
-      <a href="Hippo.html">16S Analysis Example</a>
+      <a href="Hippo.html">16S Analysis Insect communities</a>
     </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Research Focuses
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Aquatics.html">Aquatic Ecosystems</a>
+      <a href="Bswab.html">Spatial changes in human microbiome</a>
     </li>
   </ul>
 </li>
@@ -325,25 +215,24 @@ div.tocify {
 </div>
 
 
-<p>For more information see our about page or our site at <a href="http://www.benbowlab.ent.msu.edu/index.html">MSU</a></p>
-<div id="current-tutorials-on-github" class="section level1">
-<h1>Current Tutorials on GitHub</h1>
-<p>-Phylogeny from 1000 Genome Data</p>
-<p>-I6S rRNA data analysis</p>
+<p><a href="https://github.com/BenbowLab">GitHub Page</a></p>
+<p>For more information and ongoing work see our lab page at <a href="https://ericbenbow.wixsite.com/website">Benbow Lab</a></p>
+<p><a href="https://hpmmdatabase.wixsite.com/hpmmdatabase">Human Postmortem microbiome database</a></p>
+<div id="current-annotated-tutorials-are-listed-above-16s-and-snp-data" class="section level1">
+<h1>Current annotated tutorials are listed above (16S and SNP data)</h1>
+<ul>
+<li><p>Additional projects and code can be found on our <a href="https://github.com/BenbowLab">GitHub page</a></p></li>
+<li><p>QIIME2 pipeline coming soon</p></li>
+</ul>
 </div>
 <div id="recent-publications" class="section level1">
 <h1>Recent Publications</h1>
 <p>See <a href="https://scholar.google.com/citations?user=IKRkWHgAAAAJ&amp;hl=en">Google Scholar Page</a></p>
-</div>
-<div id="ongoing-projects" class="section level1">
-<h1>Ongoing Projects</h1>
-<p>Updated On 2017-11-11</p>
+<p>Updated On 2018-04-12</p>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 

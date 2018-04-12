@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="JReceveur" />
+
+
+<title>Changes in microbial communities during international travel</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlightingOnLoad(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Benbow Lab</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Phylogeny.html">Phylogeny from VCF file</a>
+    </li>
+    <li>
+      <a href="Hippo.html">16S Analysis Insect communities</a>
+    </li>
+    <li>
+      <a href="Bswab.html">Spatial changes in human microbiome</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Changes in microbial communities during international travel</h1>
+<h4 class="author"><em>JReceveur</em></h4>
+
+</div>
+
+
+<p>To show the code used click either the code tab on the right side above each box or at the top of the document</p>
+<pre class="r"><code>library(vegan)
+library(MASS)
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(magrittr)
+library(scales)
+library(grid)
+library(reshape2)
+library(phyloseq)
+library(randomForest)
+library(knitr)
+library(ape)
+library(ggpubr)
+cbPalette &lt;- c(&quot;#999999&quot;, &quot;#E69F00&quot;, &quot;#56B4E9&quot;, &quot;#009E73&quot;, &quot;#F0E442&quot;, &quot;#0072B2&quot;, &quot;#D55E00&quot;, &quot;#000000&quot;,&quot;#CC79A7&quot;)
+theme_set(theme_bw(base_size = 18)+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()))
+biom=import_biom(&quot;C:\\Users\\Joe Receveur\\Documents\\Virtual Box\\BeninSwab\\Outputs\\BeninSwabR.biom&quot;,parseFunction= parse_taxonomy_greengenes)
+meta=read.table(&quot;C:\\Users\\Joe Receveur\\Documents\\Virtual Box\\BeninSwab\\Metadata\\sample-metadata.txt&quot;,header=TRUE)
+meta=sample_data(meta)
+sample_names(meta)=meta$SampleID
+physeq=merge_phyloseq(biom,meta) 
+physeq &lt;- subset_taxa(physeq, Family != &quot;mitochondria&quot; &amp; Class != &quot;Chloroplast&quot;)
+GP= rarefy_even_depth(physeq, sample.size = 17500,
+  rngseed = FALSE, replace = TRUE, trimOTUs = TRUE, verbose = TRUE)
+GP</code></pre>
+<pre><code>## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 673 taxa and 50 samples ]
+## sample_data() Sample Data:       [ 50 samples by 9 sample variables ]
+## tax_table()   Taxonomy Table:    [ 673 taxa by 13 taxonomic ranks ]</code></pre>
+<pre class="r"><code>physeq=GP
+
+sample_data(physeq)$Timepoint = factor(sample_data(physeq)$Timepoint, levels = c(&quot;DayOfDeparture&quot;,&quot;ArrivalBenin&quot;,&quot;DepartingBenin&quot;,&quot;ArrivalGeneva&quot;,&quot;DepartingGeneva&quot;,&quot;ArrivalHome&quot;,&quot;1WeekPost&quot;,&quot;2WeekPost&quot;)) #fixes x-axis labels</code></pre>
+<div id="overview" class="section level1">
+<h1>Overview</h1>
+<p>Study Design: Samples were taken from four locations (Ears, Eyes, Nares, and Mouth) on four subjects during international travel to Benin and Switzerland over the course of two weeks and one week after returning.</p>
+<p>Only Mouth and Nares samples have been sequenced from the following timepoints: DayOfDeparture, ArrivalBenin, DepartingBenin, ArrivalGeneva, DepartingGeneva, ArrivalHome, 1WeekPost, 2WeekPost</p>
+<div id="alpha-diversity" class="section level2">
+<h2>Alpha diversity</h2>
+<pre class="r"><code>plot_richness(physeq, x=&quot;Timepoint&quot;,color=&quot;Timepoint&quot;, measures=c(&quot;Simpson&quot;))+geom_boxplot(aes(x=Timepoint, y=value, color=Timepoint), alpha=0.05)</code></pre>
+<p><img src="Bswab_files/figure-html/arichness-1.png" width="1344" style="display: block; margin: auto;" /></p>
+</div>
+<div id="taxonomic-composition" class="section level2">
+<h2>Taxonomic Composition</h2>
+<pre class="r"><code>GPr  = transform_sample_counts(physeq, function(x) x / sum(x) ) #transform samples based on relative abundance
+GPrPhylum=tax_glom(GPr, &quot;Phylum&quot;)
+PhylumLevel = filter_taxa(GPrPhylum, function(x) mean(x) &gt; 1e-3, TRUE) #filter out any taxa lower tha 0.1%
+GPrFamily=tax_glom(GPr,&quot;Family&quot;)
+FamilyLevel = filter_taxa(GPrFamily,function(x) mean(x) &gt; 1e-2, TRUE) #filter out any taxa lower tha 1%
+GPrGenus=tax_glom(GPr,&quot;Genus&quot;)
+GenusLevel = filter_taxa(GPrGenus, function(x) mean(x) &gt; 1e-2, TRUE) #filter out any taxa lower tha 1%</code></pre>
+<p>Phylum Level stacked bar graph</p>
+<pre class="r"><code>df &lt;- psmelt(PhylumLevel)
+df$Abundance=df$Abundance*100
+Trtdata &lt;- ddply(df, c(&quot;Phylum&quot;, &quot;Timepoint&quot;,&quot;Swab&quot;), summarise,
+                 N    = length(Abundance),
+                 mean = mean(Abundance),
+                 sd   = sd(Abundance),
+                 se   = sd / sqrt(N)
+)
+cdataplot=ggplot(Trtdata, aes(x=Timepoint,y=mean))+geom_bar(aes(fill = Phylum),colour=&quot;black&quot;, stat=&quot;identity&quot;,position = &quot;fill&quot;)+ facet_grid(~Swab, labeller=labeller(Sample_Type = labels))+xlab(&quot;Treatment&quot;)+ylab(&quot;Relative Abundance (&gt; 0.1%)&quot;) + theme(axis.text.x = element_text(angle = 0, hjust = 0.5))+theme(axis.title.x=element_blank())+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+ scale_fill_manual(values=cbPalette)
+cdataplot</code></pre>
+<p><img src="Bswab_files/figure-html/phylumlevelplot-1.png" width="1344" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="mouth-taxa-plots" class="section level1">
+<h1>Mouth Taxa Plots</h1>
+<pre class="r"><code>physeq=subset_samples(physeq,Timepoint!=&quot;2WeekPost&quot;)
+sample_data(physeq)$Timepoint =factor(sample_data(physeq)$Timepoint, levels = c(&quot;DayOfDeparture&quot;,&quot;ArrivalBenin&quot;,&quot;DepartingBenin&quot;,&quot;ArrivalGeneva&quot;,&quot;DepartingGeneva&quot;,&quot;ArrivalHome&quot;,&quot;1WeekPost&quot;,&quot;2WeekPost&quot;))
+LInt=subset_samples(physeq,Swab==&quot;Mouth&quot;)
+LInt=subset_samples(LInt,Timepoint!=&quot;2WeekPost&quot;)
+GPr  = transform_sample_counts(LInt, function(x) x / sum(x) ) #transform samples based on relative abundance
+GPrPhylum=tax_glom(GPr, &quot;Phylum&quot;)
+PhylumLevel = filter_taxa(GPrPhylum, function(x) mean(x) &gt; 1e-3, TRUE) #filter out any taxa lower tha 0.1%
+GPrFamily=tax_glom(GPr,&quot;Family&quot;)
+FamilyLevel = filter_taxa(GPrFamily, function(x) mean(x) &gt; 1e-2, TRUE) #filter out any taxa lower tha 1%
+GPrGenus=tax_glom(GPr,&quot;Genus&quot;)
+GenusLevel = filter_taxa(GPrGenus, function(x) mean(x) &gt; 1e-2, TRUE) #filter out any taxa lower tha 1%</code></pre>
+<div id="phylum-level" class="section level3">
+<h3>Phylum level</h3>
+<p>Stars (*) on plot represent unadjusted p values for the test for each taxa (Wilcox or KW test depending on number of groups), pairwise adjusted p values are in the table below (FDR adjustment) Table is filtered to only show taxa with a adjusted p value below 0.1</p>
+<pre class="r"><code>df &lt;- psmelt(PhylumLevel)
+df$Abundance=df$Abundance*100
+Trtdata &lt;- ddply(df, c(&quot;Phylum&quot;, &quot;Timepoint&quot;), summarise,
+                 N    = length(Abundance),
+                 mean = mean(Abundance),
+                 sd   = sd(Abundance),
+                 se   = sd / sqrt(N)
+)</code></pre>
+<pre class="r"><code>p &lt;- ggbarplot(df, x = &quot;Timepoint&quot;, y = &quot;Abundance&quot;,add = c(&quot;mean_se&quot;),#&quot;mean_se&quot;
+               color = &quot;black&quot;, palette = &quot;cbPalette&quot;, facet.by=&quot;Phylum&quot;,
+               line.color = &quot;gray&quot;, line.size = 0.4, short.panel.labs = TRUE, p.adjust.method = &quot;fdr&quot;, fill= &quot;Timepoint&quot;) + stat_compare_means(aes(group = Timepoint), label = &quot;..p.signif..&quot;,label.y = 7) 
+
+p+ theme(axis.text.x = element_text(angle = 45, hjust = 1))+ylab(&quot;Relative abundance (&gt; 0.1%)&quot;)+ theme(legend.position=&quot;none&quot;)</code></pre>
+<p><img src="Bswab_files/figure-html/unnamed-chunk-2-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Means=compare_means(Abundance ~ Timepoint, data = df, 
+              group.by = &quot;Phylum&quot;, p.adjust.method = &quot;fdr&quot;)
+#head(Means)
+keeps &lt;- c(&quot;Phylum&quot;,&quot;group1&quot;,&quot;group2&quot;,&quot;p.format&quot;,&quot;p.adj&quot;,&quot;method&quot;,&quot;p.signif&quot;)
+keeps=Means[keeps]
+#keeps
+
+
+test3 &lt;- list(&#39;Phylum&#39;= keeps$Phylum,&#39;group1&#39;=keeps$group1,&#39;group2&#39;= keeps$group2 ,&#39;p&#39;=keeps$p.format,&#39;p.adj&#39;=keeps$p.adj,p.signif=keeps$p.signif,&#39;Method&#39;=keeps$method)
+test3= as.data.frame(test3)
+#test3
+FilteredResults&lt;-test3[!(test3$p.adj&gt;0.1),]            
+FilteredResults</code></pre>
+<pre><code>## [1] Phylum   group1   group2   p        p.adj    p.signif Method  
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+<div id="family-level" class="section level3">
+<h3>Family Level</h3>
+<pre class="r"><code>df &lt;- psmelt(FamilyLevel)
+df$Abundance=df$Abundance*100
+Trtdata &lt;- ddply(df, c(&quot;Family&quot;, &quot;Timepoint&quot;), summarise,
+                 N    = length(Abundance),
+                 mean = mean(Abundance),
+                 sd   = sd(Abundance),
+                 se   = sd / sqrt(N)
+)</code></pre>
+<pre class="r"><code>p &lt;- ggbarplot(df, x = &quot;Timepoint&quot;, y = &quot;Abundance&quot;,add = c(&quot;mean_se&quot;),#&quot;mean_se&quot;
+               color = &quot;black&quot;, palette = &quot;cbPalette&quot;, facet.by=&quot;Family&quot;,
+               line.color = &quot;gray&quot;, line.size = 0.4, short.panel.labs = TRUE, p.adjust.method = &quot;bonferroni&quot;, fill= &quot;Timepoint&quot;) + stat_compare_means(aes(group = Timepoint), label = &quot;..p.signif..&quot;,label.y = 7) 
+
+p+ theme(axis.text.x = element_text(angle = 45, hjust = 1))+ylab(&quot;Relative abundance (&gt; 1%)&quot;)+ theme(legend.position=&quot;none&quot;)</code></pre>
+<p><img src="Bswab_files/figure-html/unnamed-chunk-4-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Means=compare_means(Abundance ~ Timepoint, data = df, 
+              group.by = &quot;Family&quot;, p.adjust.method = &quot;fdr&quot;)
+#head(Means)
+keeps &lt;- c(&quot;Family&quot;,&quot;group1&quot;,&quot;group2&quot;,&quot;p.format&quot;,&quot;p.adj&quot;,&quot;method&quot;,&quot;p.signif&quot;)
+keeps=Means[keeps]
+#keeps
+
+
+test3 &lt;- list(&#39;Family&#39;= keeps$Family,&#39;group1&#39;=keeps$group1,&#39;group2&#39;= keeps$group2 ,&#39;p&#39;=keeps$p.format,&#39;p.adj&#39;=keeps$p.adj,p.signif=keeps$p.signif,&#39;Method&#39;=keeps$method)
+test3= as.data.frame(test3)
+#test3
+FilteredResults&lt;-test3[!(test3$p.adj&gt;0.1),]            
+FilteredResults</code></pre>
+<pre><code>## [1] Family   group1   group2   p        p.adj    p.signif Method  
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+<div id="genus-level" class="section level3">
+<h3>Genus level</h3>
+<pre class="r"><code>df &lt;- psmelt(GenusLevel)
+df$Abundance=df$Abundance*100
+Trtdata &lt;- ddply(df, c(&quot;Genus&quot;, &quot;Timepoint&quot;), summarise,
+                 N    = length(Abundance),
+                 mean = mean(Abundance),
+                 sd   = sd(Abundance),
+                 se   = sd / sqrt(N)
+)</code></pre>
+<pre class="r"><code>p &lt;- ggbarplot(df, x = &quot;Timepoint&quot;, y = &quot;Abundance&quot;,add = c(&quot;mean_se&quot;),#&quot;mean_se&quot;
+               color = &quot;black&quot;, palette = &quot;cbPalette&quot;, facet.by=&quot;Genus&quot;,
+               line.color = &quot;gray&quot;, line.size = 0.4, short.panel.labs = TRUE, p.adjust.method = &quot;fdr&quot;, fill= &quot;Timepoint&quot;) + stat_compare_means(aes(group = Timepoint), label = &quot;..p.signif..&quot;,label.y = 7) 
+
+p+ theme(axis.text.x = element_text(angle = 45, hjust = 1))+ylab(&quot;Relative abundance (&gt; 1%)&quot;)+ theme(legend.position=&quot;none&quot;)</code></pre>
+<p><img src="Bswab_files/figure-html/unnamed-chunk-6-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Means=compare_means(Abundance ~ Timepoint, data = df, 
+              group.by = &quot;Genus&quot;, p.adjust.method = &quot;fdr&quot;)
+#head(Means)
+keeps &lt;- c(&quot;Genus&quot;,&quot;group1&quot;,&quot;group2&quot;,&quot;p.format&quot;,&quot;p.adj&quot;,&quot;method&quot;,&quot;p.signif&quot;)
+keeps=Means[keeps]
+#keeps
+
+
+test3 &lt;- list(&#39;Genus&#39;= keeps$Genus,&#39;group1&#39;=keeps$group1,&#39;group2&#39;= keeps$group2 ,&#39;p&#39;=keeps$p.format,&#39;p.adj&#39;=keeps$p.adj,p.signif=keeps$p.signif,&#39;Method&#39;=keeps$method)
+test3= as.data.frame(test3)
+#test3
+FilteredResults&lt;-test3[!(test3$p.adj&gt;0.1),]            
+FilteredResults</code></pre>
+<pre><code>## [1] Genus    group1   group2   p        p.adj    p.signif Method  
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+</div>
+<div id="nares-taxa-plots" class="section level1">
+<h1>Nares taxa plots</h1>
+<pre class="r"><code>LInt=subset_samples(physeq,Swab==&quot;Nares&quot;)
+LInt=subset_samples(LInt,Swab!=&quot;2WeekPost&quot;)
+GPr  = transform_sample_counts(LInt, function(x) x / sum(x) ) #transform samples based on relative abundance
+GPrPhylum=tax_glom(GPr, &quot;Phylum&quot;)
+PhylumLevel = filter_taxa(GPrPhylum, function(x) mean(x) &gt; 1e-2, TRUE) #filter out any taxa lower tha 1%
+GPrFamily=tax_glom(GPr,&quot;Family&quot;)
+FamilyLevel = filter_taxa(GPrFamily, function(x) mean(x) &gt; 1e-2, TRUE) #filter out any taxa lower tha 1%
+GPrGenus=tax_glom(GPr,&quot;Genus&quot;)
+GenusLevel = filter_taxa(GPrGenus, function(x) mean(x) &gt; 1e-2, TRUE) #filter out any taxa lower tha 1%</code></pre>
+<div id="phylum-level-1" class="section level3">
+<h3>Phylum level</h3>
+<p>Stars (*) on plot represent unadjusted p values for the test for each taxa (Wilcox or KW test depending on number of groups), pairwise adjusted p values are in the table below (FDR adjustment) Table is filtered to only show taxa with a adjusted p value below 0.1</p>
+<pre class="r"><code>df &lt;- psmelt(PhylumLevel)
+df$Abundance=df$Abundance*100
+Trtdata &lt;- ddply(df, c(&quot;Phylum&quot;, &quot;Timepoint&quot;), summarise,
+                 N    = length(Abundance),
+                 mean = mean(Abundance),
+                 sd   = sd(Abundance),
+                 se   = sd / sqrt(N)
+)</code></pre>
+<pre class="r"><code>p &lt;- ggbarplot(df, x = &quot;Timepoint&quot;, y = &quot;Abundance&quot;,add = c(&quot;mean_se&quot;),#&quot;mean_se&quot;
+               color = &quot;black&quot;, palette = &quot;cbPalette&quot;, facet.by=&quot;Phylum&quot;,
+               line.color = &quot;gray&quot;, line.size = 0.4, short.panel.labs = TRUE, p.adjust.method = &quot;fdr&quot;, fill= &quot;Timepoint&quot;) + stat_compare_means(aes(group = Timepoint), label = &quot;..p.signif..&quot;,label.y = 7) 
+
+p+ theme(axis.text.x = element_text(angle = 45, hjust = 1))+ylab(&quot;Relative abundance (&gt; 1%)&quot;)+ theme(legend.position=&quot;none&quot;)</code></pre>
+<p><img src="Bswab_files/figure-html/unnamed-chunk-9-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Means=compare_means(Abundance ~ Timepoint, data = df, 
+              group.by = &quot;Phylum&quot;, p.adjust.method = &quot;fdr&quot;)
+#head(Means)
+keeps &lt;- c(&quot;Phylum&quot;,&quot;group1&quot;,&quot;group2&quot;,&quot;p.format&quot;,&quot;p.adj&quot;,&quot;method&quot;,&quot;p.signif&quot;)
+keeps=Means[keeps]
+#keeps
+
+
+test3 &lt;- list(&#39;Phylum&#39;= keeps$Phylum,&#39;group1&#39;=keeps$group1,&#39;group2&#39;= keeps$group2 ,&#39;p&#39;=keeps$p.format,&#39;p.adj&#39;=keeps$p.adj,p.signif=keeps$p.signif,&#39;Method&#39;=keeps$method)
+test3= as.data.frame(test3)
+#test3
+FilteredResults&lt;-test3[!(test3$p.adj&gt;0.1),]            
+FilteredResults</code></pre>
+<pre><code>## [1] Phylum   group1   group2   p        p.adj    p.signif Method  
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+<div id="family-level-1" class="section level3">
+<h3>Family Level</h3>
+<pre class="r"><code>df &lt;- psmelt(FamilyLevel)
+df$Abundance=df$Abundance*100
+Trtdata &lt;- ddply(df, c(&quot;Family&quot;, &quot;Timepoint&quot;), summarise,
+                 N    = length(Abundance),
+                 mean = mean(Abundance),
+                 sd   = sd(Abundance),
+                 se   = sd / sqrt(N)
+)</code></pre>
+<pre class="r"><code>p &lt;- ggbarplot(df, x = &quot;Timepoint&quot;, y = &quot;Abundance&quot;,add = c(&quot;mean_se&quot;),#&quot;mean_se&quot;
+               color = &quot;black&quot;, palette = &quot;cbPalette&quot;, facet.by=&quot;Family&quot;,
+               line.color = &quot;gray&quot;, line.size = 0.4, short.panel.labs = TRUE, p.adjust.method = &quot;bonferroni&quot;, fill= &quot;Timepoint&quot;) + stat_compare_means(aes(group = Timepoint), label = &quot;..p.signif..&quot;,label.y = 7) 
+
+p+ theme(axis.text.x = element_text(angle = 45, hjust = 1))+ylab(&quot;Relative abundance (&gt; 1%)&quot;)+ theme(legend.position=&quot;none&quot;)</code></pre>
+<p><img src="Bswab_files/figure-html/unnamed-chunk-11-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Means=compare_means(Abundance ~ Timepoint, data = df, 
+              group.by = &quot;Family&quot;, p.adjust.method = &quot;fdr&quot;)
+#head(Means)
+keeps &lt;- c(&quot;Family&quot;,&quot;group1&quot;,&quot;group2&quot;,&quot;p.format&quot;,&quot;p.adj&quot;,&quot;method&quot;,&quot;p.signif&quot;)
+keeps=Means[keeps]
+#keeps
+
+
+test3 &lt;- list(&#39;Family&#39;= keeps$Family,&#39;group1&#39;=keeps$group1,&#39;group2&#39;= keeps$group2 ,&#39;p&#39;=keeps$p.format,&#39;p.adj&#39;=keeps$p.adj,p.signif=keeps$p.signif,&#39;Method&#39;=keeps$method)
+test3= as.data.frame(test3)
+#test3
+FilteredResults&lt;-test3[!(test3$p.adj&gt;0.1),]            
+FilteredResults</code></pre>
+<pre><code>## [1] Family   group1   group2   p        p.adj    p.signif Method  
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+<div id="genus-level-1" class="section level3">
+<h3>Genus level</h3>
+<pre class="r"><code>df &lt;- psmelt(GenusLevel)
+df$Abundance=df$Abundance*100
+Trtdata &lt;- ddply(df, c(&quot;Genus&quot;, &quot;Timepoint&quot;), summarise,
+                 N    = length(Abundance),
+                 mean = mean(Abundance),
+                 sd   = sd(Abundance),
+                 se   = sd / sqrt(N)
+)</code></pre>
+<pre class="r"><code>p &lt;- ggbarplot(df, x = &quot;Timepoint&quot;, y = &quot;Abundance&quot;,add = c(&quot;mean_se&quot;),#&quot;mean_se&quot;
+               color = &quot;black&quot;, palette = &quot;cbPalette&quot;, facet.by=&quot;Genus&quot;,
+               line.color = &quot;gray&quot;, line.size = 0.4, short.panel.labs = TRUE, p.adjust.method = &quot;fdr&quot;, fill= &quot;Timepoint&quot;) + stat_compare_means(aes(group = Timepoint), label = &quot;..p.signif..&quot;,label.y = 7) 
+
+p+ theme(axis.text.x = element_text(angle = 45, hjust = 1))+ylab(&quot;Relative abundance (&gt; 0.1%)&quot;)+ theme(legend.position=&quot;none&quot;)</code></pre>
+<p><img src="Bswab_files/figure-html/unnamed-chunk-13-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Means=compare_means(Abundance ~ Timepoint, data = df, 
+              group.by = &quot;Genus&quot;, p.adjust.method = &quot;fdr&quot;)
+#head(Means)
+keeps &lt;- c(&quot;Genus&quot;,&quot;group1&quot;,&quot;group2&quot;,&quot;p.format&quot;,&quot;p.adj&quot;,&quot;method&quot;,&quot;p.signif&quot;)
+keeps=Means[keeps]
+#keeps
+
+
+test3 &lt;- list(&#39;Genus&#39;= keeps$Genus,&#39;group1&#39;=keeps$group1,&#39;group2&#39;= keeps$group2 ,&#39;p&#39;=keeps$p.format,&#39;p.adj&#39;=keeps$p.adj,p.signif=keeps$p.signif,&#39;Method&#39;=keeps$method)
+test3= as.data.frame(test3)
+#test3
+FilteredResults&lt;-test3[!(test3$p.adj&gt;0.1),]            
+FilteredResults</code></pre>
+<pre><code>## [1] Genus    group1   group2   p        p.adj    p.signif Method  
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+</div>
+<div id="permanovaordination-results" class="section level1">
+<h1>PERMANOVA/Ordination results</h1>
+<p>-All ordinations were conducted using Jensen-Shannon distance</p>
+<p>-Ellipses represent 95% CI for the mean of each group</p>
+<div id="pcoa" class="section level2">
+<h2>PCoA</h2>
+<pre class="r"><code>ord=ordinate(physeq,&quot;PCoA&quot;, &quot;jsd&quot;)
+ordplot=plot_ordination(physeq, ord,&quot;samples&quot;, color=&quot;Timepoint&quot;)+geom_point(size=4)+scale_colour_manual(values=cbPalette)+scale_fill_manual(values=cbPalette)
+ordplot+ stat_ellipse(type= &quot;norm&quot;,geom = &quot;polygon&quot;, alpha = 1/4, aes(fill = Timepoint))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  facet_wrap(~Swab)#+ theme(legend.justification=c(1,0), legend.position=c(1,0))</code></pre>
+<p><img src="Bswab_files/figure-html/unnamed-chunk-14-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ord=ordinate(physeq,&quot;PCoA&quot;, &quot;jsd&quot;)
+ordplot=plot_ordination(physeq, ord,&quot;samples&quot;, color=&quot;Swab&quot;)+geom_point(size=4)+scale_colour_manual(values=cbPalette)+scale_fill_manual(values=cbPalette)
+ordplot+ stat_ellipse(type= &quot;norm&quot;,geom = &quot;polygon&quot;, alpha = 1/4, aes(fill = Swab))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  facet_wrap(~Timepoint)#+ theme(legend.justification=c(1,0), legend.position=c(1,0))</code></pre>
+<p><img src="Bswab_files/figure-html/unnamed-chunk-15-1.png" width="1344" style="display: block; margin: auto;" /></p>
+</div>
+<div id="permanovas" class="section level2">
+<h2>PERMANOVAs</h2>
+</div>
+<div id="swab-type-x-timepoint" class="section level2">
+<h2>Swab type X Timepoint</h2>
+<p>See QIIME outputs for other distance metrics</p>
+<pre class="r"><code>GPdist=phyloseq::distance(physeq, &quot;jsd&quot;)</code></pre>
+<pre class="r"><code>adonis(GPdist ~ Swab*Timepoint, as(sample_data(physeq), &quot;data.frame&quot;))</code></pre>
+<pre><code>## 
+## Call:
+## adonis(formula = GPdist ~ Swab * Timepoint, data = as(sample_data(physeq),      &quot;data.frame&quot;)) 
+## 
+## Permutation: free
+## Number of permutations: 999
+## 
+## Terms added sequentially (first to last)
+## 
+##                Df SumsOfSqs MeanSqs F.Model      R2 Pr(&gt;F)    
+## Swab            1    3.7610  3.7610  67.593 0.63596  0.001 ***
+## Timepoint       6    0.1944  0.0324   0.582 0.03287  0.873    
+## Swab:Timepoint  6    0.1223  0.0204   0.366 0.02068  0.989    
+## Residuals      33    1.8362  0.0556         0.31049           
+## Total          46    5.9138                 1.00000           
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
