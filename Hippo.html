@@ -279,9 +279,6 @@ div.tocify {
         <li>
   <a href="index.html">Home</a>
 </li>
-<li>
-  <a href="about.html">About</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Tutorials
@@ -293,19 +290,10 @@ div.tocify {
       <a href="Phylogeny.html">Phylogeny from VCF file</a>
     </li>
     <li>
-      <a href="Hippo.html">16S Analysis Example</a>
+      <a href="Hippo.html">16S Analysis Insect communities</a>
     </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Research Focuses
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Aquatics.html">Aquatic Ecosystems</a>
+      <a href="Bswab.html">Spatial changes in human microbiome</a>
     </li>
   </ul>
 </li>
@@ -439,39 +427,47 @@ Merged=transform_sample_counts(Merged,function(x) 100 * x/sum(x))</code></pre>
 <p>Now, we’ll make some NMDS plots of the data using bray curtis. First, we need to run the ordination.For more detailed distance options see <a href="https://joey711.github.io/phyloseq/distance.html" class="uri">https://joey711.github.io/phyloseq/distance.html</a></p>
 <pre class="r"><code>Hipp.ord=ordinate(HippFiltered, &quot;NMDS&quot;, &quot;bray&quot;)</code></pre>
 <pre><code>## Run 0 stress 0.1237196 
-## Run 1 stress 0.1557353 
-## Run 2 stress 0.1215456 
+## Run 1 stress 0.1237181 
 ## ... New best solution
-## ... Procrustes: rmse 0.2011982  max resid 0.3752674 
-## Run 3 stress 0.1215409 
+## ... Procrustes: rmse 0.003568905  max resid 0.007614017 
+## ... Similar to previous best
+## Run 2 stress 0.1475538 
+## Run 3 stress 0.12154 
 ## ... New best solution
-## ... Procrustes: rmse 0.0007569905  max resid 0.001912477 
-## ... Similar to previous best
-## Run 4 stress 0.1475528 
-## Run 5 stress 0.1675967 
-## Run 6 stress 0.1215342 
+## ... Procrustes: rmse 0.2025603  max resid 0.3841718 
+## Run 4 stress 0.1215398 
 ## ... New best solution
-## ... Procrustes: rmse 0.003629758  max resid 0.009412449 
+## ... Procrustes: rmse 7.32784e-05  max resid 0.0001479211 
 ## ... Similar to previous best
-## Run 7 stress 0.1215365 
-## ... Procrustes: rmse 0.00122879  max resid 0.003162949 
+## Run 5 stress 0.1237192 
+## Run 6 stress 0.1215381 
+## ... New best solution
+## ... Procrustes: rmse 0.000430563  max resid 0.001115534 
 ## ... Similar to previous best
-## Run 8 stress 0.1484238 
-## Run 9 stress 0.1237192 
-## Run 10 stress 0.148437 
-## Run 11 stress 0.1215414 
-## ... Procrustes: rmse 0.003638536  max resid 0.009409709 
+## Run 7 stress 0.1237198 
+## Run 8 stress 0.1543166 
+## Run 9 stress 0.1237179 
+## Run 10 stress 0.1359682 
+## Run 11 stress 0.1237173 
+## Run 12 stress 0.1215384 
+## ... Procrustes: rmse 0.00012988  max resid 0.0002870344 
 ## ... Similar to previous best
-## Run 12 stress 0.1423667 
-## Run 13 stress 0.1237154 
-## Run 14 stress 0.1359681 
-## Run 15 stress 0.1496386 
-## Run 16 stress 0.135968 
-## Run 17 stress 0.1286316 
-## Run 18 stress 0.1543173 
-## Run 19 stress 0.1237162 
-## Run 20 stress 0.1475533 
-## *** Solution reached</code></pre>
+## Run 13 stress 0.1484288 
+## Run 14 stress 0.1215409 
+## ... Procrustes: rmse 0.005419231  max resid 0.01409039 
+## Run 15 stress 0.1557357 
+## Run 16 stress 0.1215397 
+## ... Procrustes: rmse 0.0002952179  max resid 0.0007848221 
+## ... Similar to previous best
+## Run 17 stress 0.1557346 
+## Run 18 stress 0.121541 
+## ... Procrustes: rmse 0.005429454  max resid 0.01412899 
+## Run 19 stress 0.1215371 
+## ... New best solution
+## ... Procrustes: rmse 0.004404137  max resid 0.01146156 
+## Run 20 stress 0.1237185 
+## *** No convergence -- monoMDS stopping criteria:
+##     20: stress ratio &gt; sratmax</code></pre>
 <p>Now we’ll plot the samples by Bird Species</p>
 <pre class="r"><code>plot_ordination(HippFiltered,Hipp.ord,type=&quot;samples&quot;,color=&quot;BirdSpecies&quot;)+geom_point(size=5)+ggtitle(&quot;NMDS by Bird Species&quot;)</code></pre>
 <p><img src="Hippo_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
@@ -504,7 +500,7 @@ Merged=transform_sample_counts(Merged,function(x) 100 * x/sum(x))</code></pre>
 ## Terms added sequentially (first to last)
 ## 
 ##             Df SumsOfSqs MeanSqs F.Model     R2 Pr(&gt;F)
-## BirdSpecies  4    0.8402 0.21005 0.65247 0.2248  0.967
+## BirdSpecies  4    0.8402 0.21005 0.65247 0.2248  0.964
 ## Residuals    9    2.8973 0.32193         0.7752       
 ## Total       13    3.7375                 1.0000</code></pre>
 </div>
@@ -516,7 +512,7 @@ Merged=transform_sample_counts(Merged,function(x) 100 * x/sum(x))</code></pre>
 <p>For more info on the phyloseq package visit joey711.github.io/phyloseq/</p>
 <pre><code>## R version 3.4.2 (2017-09-28)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 14393)
+## Running under: Windows 10 x64 (build 16299)
 ## 
 ## Matrix products: default
 ## 
