@@ -1,5 +1,5 @@
 name: Benbow Lab
-output_dir: .
+output_dir: "."
 output:
   html_document:
     toc: yes
@@ -12,6 +12,8 @@ navbar:
   left:
   - text: Home
     href: index.html
+  - text: Italy Workshop
+    href: ItalyWorkshop.html
   - text: Tutorials
     menu:
     - text: Phylogeny from VCF file

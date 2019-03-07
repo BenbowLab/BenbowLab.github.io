@@ -1,0 +1,123 @@
+---
+title: "Italy Stream Microbiome Workshop"
+author: "SKaszubinski & JReceveur"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+  
+  ```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width=14, fig.height=10)
+knitr::opts_chunk$set(fig.align="center")
+```
+
+#Getting Started 
+This example materials was developed for the Bridging Ecology and Applications Through High Throughput Sequencing Technology Workshop (14 March 2019) using data from a ongoing project investigating the microbial communiites associated with stream macroinvertebrates in the Po River. For contact information and questions see our [lab webpage](https://ericbenbow.wixsite.com/website) or [Github site](https://benbowlab.github.io/). 
+
+##Install Packages
+The first step is to install and load the packages you will need. The package [phyloseq](https://joey711.github.io/phyloseq/) is a widely used package for analyzing microbial data and has a number of excellent tutorials if you would like more information. The other packages contain more general functions such as statistical testing and plotting that we will use as well. 
+
+
+```{r,eval=F}
+install.packages(c("vegan","ggplot2","RCurl","plyr","dplyr"))
+
+source('http://bioconductor.org/biocLite.R')
+biocLite('phyloseq')
+```
+
+```{r,include=F}
+library(vegan)
+library(ggplot2)
+library(phyloseq)
+library(RCurl)
+library(plyr)
+library(dplyr)
+```
+
+##Loading packages
+
+After the packages are installed, they will have to be loaded each time you start a new R session. You will most likely see several messages when you run the code below but as long as there are not any errors you can move on to the next steps.
+```{r ,eval=F}
+
+library(vegan)
+library(ggplot2)
+library(phyloseq)
+library(RCurl)
+library(plyr)
+library(dplyr)
+```
+
+
+
+
+#Data Import
+To download and import the data into R, the lines below will download the metadata and a phylogenetic tree (output from pipeline that can be used in weighted metrics).
+
+```{r,eval=F}
+x<-getURL("https://raw.githubusercontent.com/BenbowLab/BenbowLab.github.io/master/ItalyStreamMicrobiomeMetadata.csv")
+metadata<-read.csv(text= x,header=T)
+metadata
+x<-getURL("https://raw.githubusercontent.com/BenbowLab/BenbowLab.github.io/master/ItalyInvert11.29.18Tree.nwk")
+tree=read_tree(x)
+```
+
+As the file containing the sequencing information is too large to directly download into R from Github (1,026 KB), you will have to open a browser to download the data. The first line below will take you to the page with the data. You will see a link named Raw in the middle of the page, click on it to download. 
+
+After the file is downloaded, run the next line to import the data into R. This command will open a window where you will navigate to the file and click open to select the file and load it into R.
+```{r,eval=F}
+browseURL("https://github.com/BenbowLab/BenbowLab.github.io/blob/master/ItalyInvert2018WTax.biom")
+biom<-import_biom(file.choose(),parseFunction= parse_taxonomy_greengenes) 
+
+
+```
+
+```{r,include=F}
+biom=import_biom("C:\\Users\\Joe Receveur\\Documents\\MSU data\\ItalyInverts\\ItalyInvert2018WTax.biom",parseFunction= parse_taxonomy_greengenes)
+metadata=read.csv("C:\\Users\\Joe Receveur\\Documents\\MSU data\\ItalyInverts\\ItalyInvertMetadataWDiversity11.27.18.csv",header = TRUE)
+tree=read_tree("C:\\Users\\Joe Receveur\\Documents\\MSU data\\ItalyInverts\\ItalyInvert11.29.18Tree.nwk")
+```
+
+The next section of code will combine together the metadata, phylogenetic tree, and sequencing data into a single object in R. 
+```{r}
+sampdat=sample_data(metadata)
+sample_names(sampdat)=metadata$id
+CombinedData=merge_phyloseq(biom,sampdat,tree)
+CombinedData=rarefy_even_depth(CombinedData, 3000, replace = TRUE, trimOTUs = TRUE, verbose = TRUE,rngseed = TRUE)
+```
+
+##Data overview{.tabset}
+
+Sampling and methodologies:
+
+The data that we will be using in this example consists of the internal microbiome of aquatic insects from different functional feeding groups at two locations with different riparian conditions (Forest vs Alpine Prairie).
+
+![Locations of sample sites within the Upper Po river](MapOfSampleSites.jpg)
+
+![A) Alpine Prairie (Pian della Regina) B) Forested site (Ostana)](SampleSitePhotos.jpg)
+
+```{r}
+CombinedData
+
+```
+
+
+
+```{r}
+Trtdata <- ddply(metadata, c("Sampling_station", "FFG","Taxon_name"), summarise,
+                 N    = length(id),
+                 meanWeight = mean(Mass),
+                 sd   = sd(Mass),
+                 se   = sd / sqrt(N)
+)
+Trtdata
+ggplot(metadata,aes(x=Sampling_station,y=Mass,fill=Sampling_station))+geom_boxplot()+ylab("Mass (mg)")+labs(fill="FFG")+guides(fill=FALSE)+facet_wrap(~FFG,scales = "free_y")
+
+
+```
+
+```{r,include=F}
+theme_set(theme_bw(base_size = 18)+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()))
+
+```
