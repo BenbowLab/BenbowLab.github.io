@@ -1,0 +1,27 @@
+id,FieldID,Taxon_name,FFG,Sampling_station,Mass,shannon,faith_pd
+II5,T1OS,Tipula_(Acutitipula),Shredder,Forest,989.1,7.086586409,20.95168644
+II6,T2OS,Tipula_(Acutitipula),Shredder,Forest,470,7.430370936,22.58281222
+II8,T4OS,Tipula_(Acutitipula),Shredder,Forest,145.7,7.383974568,21.4785986
+II13,P1OS,Perla,Predator,Forest,67.1,6.952584989,17.94330609
+II14,P2OS,Perla,Predator,Forest,313.9,6.20062007,26.41718428
+II15,H2OS,Hydropsyche,Filterer,Forest,7.2,6.1539517,17.75811338
+II16,H3OS,Hydropsyche,Filterer,Forest,17.8,6.337642547,22.39990009
+II17,H4OS,Hydropsyche,Filterer,Forest,70.3,6.758109616,24.42772612
+II18,H5OS,Hydropsyche,Filterer,Forest,70.5,6.761907322,23.05976555
+E1OS,E1OS,Epeorus,Scraper,Forest,20.2,4.909372749,11.37265676
+E2OS,E2OS,Epeorus,Scraper,Forest,27.5,1.96196531,9.905821594
+E3OS,E3OS,Epeorus,Scraper,Forest,19,3.082874357,9.14614048
+E4OS,E4OS,Epeorus,Scraper,Forest,20.8,4.832612766,7.641726828
+E5OS,E5OS,Epeorus,Scraper,Forest,26.3,3.061130649,7.197869888
+II1,T1P,Tipula_(Acutitipula),Shredder,Alpine Prairie ,131.8,7.293770729,21.72881587
+II2,T2P,Tipula_(Acutitipula),Shredder,Alpine Prairie ,53.9,6.999292277,20.79810117
+II3,T3P,Tipula_(Acutitipula),Shredder,Alpine Prairie ,48.2,6.058263254,11.17025151
+II4,T4P,Tipula_(Acutitipula),Shredder,Alpine Prairie ,116.9,7.174481002,21.99740918
+II9,D1P,Dictyogenus,Predator,Alpine Prairie ,66.2,4.564037254,14.19967559
+II10,D2P,Dictyogenus,Predator,Alpine Prairie ,102.1,7.823088733,27.2708189
+II11,D3P,Dictyogenus,Predator,Alpine Prairie ,92.4,6.599970062,26.11685875
+II12,D4P,Dictyogenus,Predator,Alpine Prairie ,75.1,5.66909715,17.39794061
+E1P,E1P,Epeorus,Scraper,Alpine Prairie ,11,1.602490679,4.266886019
+E3P,E3P,Epeorus,Scraper,Alpine Prairie ,17.4,4.528373769,5.468116466
+E4P,E4P,Epeorus,Scraper,Alpine Prairie ,9.6,0.775081451,4.605169327
+E5P,E5P,Epeorus,Scraper,Alpine Prairie ,8.4,0.752659291,4.586618721
