@@ -127,7 +127,6 @@ TrtdataSorted[1:5,]
 
 The next section of code filters out bacterial taxa that occured at a low abundance and makes additional files where the samples are group together at different levels (Phylum, Family, Genus). 
 
-Question for further understanding: What would happen to your relative abundance plots if you do not filter out low abundance taxa?
 
 ```{r}
 GPr  = transform_sample_counts(CombinedData, function(x) x / sum(x) ) #transform samples based on relative abundance

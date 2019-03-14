@@ -499,7 +499,6 @@ CombinedData=rarefy_even_depth(CombinedData, 3000, replace = TRUE, trimOTUs = TR
 <div id="taxonomic-composition" class="section level1">
 <h1>Taxonomic Composition</h1>
 <p>The next section of code filters out bacterial taxa that occured at a low abundance and makes additional files where the samples are group together at different levels (Phylum, Family, Genus).</p>
-<p>Question for further understanding: What would happen to your relative abundance plots if you do not filter out low abundance taxa?</p>
 <pre class="r"><code>GPr  = transform_sample_counts(CombinedData, function(x) x / sum(x) ) #transform samples based on relative abundance
 GPr = filter_taxa(GPr, function(x) mean(x) &gt; 1e-5, TRUE)
 PhylumAll=tax_glom(GPr, &quot;Phylum&quot;)# Group samples at the phylum level
