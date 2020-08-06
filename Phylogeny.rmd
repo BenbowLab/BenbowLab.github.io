@@ -1,7 +1,7 @@
 ---
 title: "Creating a phylogeny from the 1000 Genome Database"
 author: "JReceveur"
-date: "June 11, 2017"
+date: "Aug 6, 2020"
 output:
   html_document:
     toc: true
@@ -22,8 +22,11 @@ This document was created using Rmarkdown <http://rmarkdown.rstudio.com>.
 
 #Installing Packages
 ```{r}
-#source("https://bioconductor.org/biocLite.R")
-#biocLite("SNPRelate")
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+
+#BiocManager::install("SNPRelate")
+#install.packages("rlang")
 ```
 
 #Loading Packages
@@ -52,7 +55,7 @@ These commands prepare the data so it is formatted correctly to create a dissimi
 ```{r clustering}
 genofile<-snpgdsOpen("data.gds")
 set.seed(100)
-ibs.hc<-snpgdsHCluster(snpgdsIBS(genofile,num.thread=2, autosome.only=FALSE))
+ibs.hc<-snpgdsHCluster(snpgdsDiss(genofile,num.thread=2, autosome.only=FALSE))
 ```
 
 #Turn the clustering into a tree file and plotting tree
@@ -66,7 +69,7 @@ plot(rv$dendrogram,main="Within 10 kb of ACE-1")
 #Dissimilarity matrix
 This command creates a dissimilarity matrix between all the samples. If you are looking at the X chromosome, make sure the autosome.only= code is changed to autosome.only=False.
 ```{r}
-dissMatrix  =  snpgdsIBS(genofile , sample.id=NULL, autosome.only=TRUE,remove.monosnp=TRUE,  maf=NaN, missing.rate=NaN, num.thread=2, verbose=TRUE)
+dissMatrix  =  snpgdsDiss(genofile , sample.id=NULL, autosome.only=TRUE,remove.monosnp=TRUE,  maf=NaN, missing.rate=NaN, num.thread=2, verbose=TRUE)
 
 ```
 
@@ -82,10 +85,10 @@ snpgdsClose(genofile)
 ```
 
 #Displaying a tree based on dissimilarity
-Even though the tree is based on dissimilarity, the closest samples are still the most similar or to be more accurate, least dissimilar. 
+*This methods also displays coancestry coefficient 
 ```{r}
 snpgdsDrawTree(cutTree, main = "Phylogenetic Tree",edgePar=list(col=rgb(0.5,0.5,0.5,0.75),t.col="black"),
-               y.label.kinship=T,leaflab="perpendicular")
+               y.label.kinship=T,leaflab="perpendicular",yaxis.kinship=F)
 ```
 
 #Session Info
