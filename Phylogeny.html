@@ -352,11 +352,11 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="ItalyWorkshop.html">Italy Workshop</a>
+  <a href="ItalyWorkshop.html">16S Workshop</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
+    Other Tutorials
      
     <span class="caret"></span>
   </a>
@@ -417,7 +417,7 @@ library(SNPRelate)</code></pre>
 <div id="loading-vcf-file" class="section level1">
 <h1>Loading VCF file</h1>
 <p>There are two ways that the VCF file can be loaded into Rstudio if it already on your computer. The first is directly specifying the file path and name, the second is using the file.choose option which will open a browser so you can search for the file. These options are commented out with # (putting a # before any code means it will be treated as text, to run it, just remove the #).</p>
-<p>If you want to follow along with the example data, the data (Approx 1.4 MB) is available for download <a href="https://github.com/BenbowLab/BenbowLab.github.io/blob/master/10kbExampleData.vcf" class="uri">https://github.com/BenbowLab/BenbowLab.github.io/blob/master/10kbExampleData.vcf</a></p>
+<p>If you want to follow along with the example data, the data (Approx 1.4 MB) is available for download <a href="https://github.com/BenbowLab/BenbowLab.github.io/blob/master/VCFExampleData.vcf" class="uri">https://github.com/BenbowLab/BenbowLab.github.io/blob/master/VCFExampleData.vcf</a></p>
 <pre class="r"><code>vcf.fn &lt;- &quot;VCFExampleData.vcf&quot;
 #vcf.fn&lt;- file.choose()</code></pre>
 </div>
@@ -451,11 +451,11 @@ ibs.hc&lt;-snpgdsHCluster(snpgdsIBS(genofile,num.thread=2, autosome.only=FALSE))
 ##     # of SNPs: 2,102
 ##     using 2 threads
 ## IBS:    the sum of all selected genotypes (0,1,2) = 48494
-## Thu Aug 06 14:08:39 2020    (internal increment: 65536)
+## Thu Aug 06 14:19:39 2020    (internal increment: 65536)
 ## 
 [..................................................]  0%, ETC: ---        
 [==================================================] 100%, completed, 0s
-## Thu Aug 06 14:08:39 2020    Done.</code></pre>
+## Thu Aug 06 14:19:39 2020    Done.</code></pre>
 </div>
 <div id="turn-the-clustering-into-a-tree-file-and-plotting-tree" class="section level1">
 <h1>Turn the clustering into a tree file and plotting tree</h1>
@@ -469,6 +469,7 @@ ibs.hc&lt;-snpgdsHCluster(snpgdsIBS(genofile,num.thread=2, autosome.only=FALSE))
 <div id="dissimilarity-matrices" class="section level1">
 <h1>Dissimilarity matrices</h1>
 <p>This command creates an dissimilarity matrix between all the samples. If you are looking at the X chromosome, make sure the autosome.only= code is changed to autosome.only=False.</p>
+<p>*Note: A previous version of this example incorrectly used the snpgdsIBS command here instead of snpgdsDiss. We apologize for any confusion.</p>
 <pre class="r"><code>dissMatrix  =  snpgdsDiss(genofile , sample.id=NULL, autosome.only=TRUE,remove.monosnp=TRUE,  maf=NaN, missing.rate=NaN, num.thread=2, verbose=TRUE)</code></pre>
 <pre><code>## Individual dissimilarity analysis on genotypes:
 ## Excluding 0 SNP on non-autosomes
@@ -477,8 +478,8 @@ ibs.hc&lt;-snpgdsHCluster(snpgdsIBS(genofile,num.thread=2, autosome.only=FALSE))
 ##     # of SNPs: 2,102
 ##     using 2 threads
 ## Dissimilarity:    the sum of all selected genotypes (0,1,2) = 48494
-## Dissimilarity:   Thu Aug 06 14:08:39 2020    0%
-## Dissimilarity:   Thu Aug 06 14:08:39 2020    100%</code></pre>
+## Dissimilarity:   Thu Aug 06 14:19:39 2020    0%
+## Dissimilarity:   Thu Aug 06 14:19:39 2020    100%</code></pre>
 </div>
 <div id="clustering-analysis" class="section level1">
 <h1>Clustering Analysis</h1>

@@ -43,7 +43,7 @@ library(ggplot2)
 #Loading VCF file 
 There are two ways that the VCF file can be loaded into Rstudio if it already on your computer. The first is directly specifying the file path and name, the second is using the file.choose option which will open a browser so you can search for the file. These options are commented out with # (putting a # before any code means it will be treated as text, to run it, just remove the #). 
 
-If you want to follow along with the example data, the data (Approx 1.4 MB) is available for download https://github.com/BenbowLab/BenbowLab.github.io/blob/master/10kbExampleData.vcf
+If you want to follow along with the example data, the data (Approx 1.4 MB) is available for download https://github.com/BenbowLab/BenbowLab.github.io/blob/master/VCFExampleData.vcf
 ```{r import}
 vcf.fn <- "VCFExampleData.vcf"
 #vcf.fn<- file.choose()
