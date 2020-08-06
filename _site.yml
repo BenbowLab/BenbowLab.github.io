@@ -12,9 +12,9 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: Italy Workshop
+  - text: 16S Workshop
     href: ItalyWorkshop.html
-  - text: Tutorials
+  - text: Other Tutorials
     menu:
     - text: Phylogeny from VCF file
       href: Phylogeny.html

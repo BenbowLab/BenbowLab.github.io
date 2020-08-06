@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="JReceveur" />
 
-<meta name="date" content="2017-06-11" />
 
 <title>Creating a phylogeny from the 1000 Genome Database</title>
 
@@ -39,7 +38,7 @@ if (window.hljs) {
   hljs.configure({languages: []});
   hljs.initHighlightingOnLoad();
   if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlightingOnLoad(); }, 0);
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
   }
 }
 </script>
@@ -74,9 +73,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -90,13 +87,18 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -112,7 +114,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -132,6 +133,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -153,47 +191,66 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
-
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -207,6 +264,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -242,8 +305,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -252,6 +313,16 @@ div.tocify {
 
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -279,6 +350,9 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="ItalyWorkshop.html">Italy Workshop</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -311,8 +385,8 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Creating a phylogeny from the 1000 Genome Database</h1>
-<h4 class="author"><em>JReceveur</em></h4>
-<h4 class="date"><em>June 11, 2017</em></h4>
+<h4 class="author">JReceveur</h4>
+<h4 class="date">Aug 6, 2020</h4>
 
 </div>
 
@@ -320,13 +394,16 @@ div.tocify {
 <div id="creating-a-dendrogram-from-a-downloaded-vcf-file" class="section level2">
 <h2>Creating a Dendrogram from a downloaded VCF file</h2>
 <p>This document provides an example of creating a dendrogram from a VCF file. The VCF file can be altered using VCFtools to look at a specific area of the genome. The lines starting with ## are what you would expect to see for the output</p>
+<p>For a more in depth tutorial of SNPRelate see <a href="http://corearray.sourceforge.net/tutorials/SNPRelate/" class="uri">http://corearray.sourceforge.net/tutorials/SNPRelate/</a></p>
 <p>This document was created using Rmarkdown <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
 <p>```</p>
 </div>
 <div id="installing-packages" class="section level1">
 <h1>Installing Packages</h1>
-<pre class="r"><code>#source(&quot;https://bioconductor.org/biocLite.R&quot;)
-#biocLite(&quot;SNPRelate&quot;)</code></pre>
+<pre class="r"><code>#if (!requireNamespace(&quot;BiocManager&quot;, quietly = TRUE))
+#    install.packages(&quot;BiocManager&quot;)
+
+#BiocManager::install(&quot;SNPRelate&quot;)</code></pre>
 </div>
 <div id="loading-packages" class="section level1">
 <h1>Loading Packages</h1>
@@ -335,47 +412,50 @@ div.tocify {
 library(SNPRelate)</code></pre>
 <pre><code>## SNPRelate -- supported by Streaming SIMD Extensions 2 (SSE2)</code></pre>
 <pre class="r"><code>library(ggplot2)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2</code></pre>
 </div>
 <div id="loading-vcf-file" class="section level1">
 <h1>Loading VCF file</h1>
-<p>There are two ways that the VCF file can be loaded into Rstudio. The first is directly specifying the file path and name, the second is using the file.choose option which will open a browser so you can search for the file. The second optio that is currently commented out with # (putting a # before any code means it will be treated as text, to run it, just remove the #).</p>
-<pre class="r"><code>vcf.fn &lt;- &quot;C:\\Users\\Joe Receveur\\Documents\\Virtual Box\\Benin\\10kbExampleData.vcf&quot;
+<p>There are two ways that the VCF file can be loaded into Rstudio if it already on your computer. The first is directly specifying the file path and name, the second is using the file.choose option which will open a browser so you can search for the file. These options are commented out with # (putting a # before any code means it will be treated as text, to run it, just remove the #).</p>
+<p>If you want to follow along with the example data, the data (Approx 1.4 MB) is available for download <a href="https://github.com/BenbowLab/BenbowLab.github.io/blob/master/10kbExampleData.vcf" class="uri">https://github.com/BenbowLab/BenbowLab.github.io/blob/master/10kbExampleData.vcf</a></p>
+<pre class="r"><code>vcf.fn &lt;- &quot;VCFExampleData.vcf&quot;
 #vcf.fn&lt;- file.choose()</code></pre>
 </div>
 <div id="parsing" class="section level1">
 <h1>Parsing</h1>
-<p>The next command will turn the VCF file into a less data intensive form (GDS) for easier computing. If you have loaded the entire genome, expect this command to take an hour or more.</p>
+<p>The next command will turn the VCF file into a less data intensive form (GDS) for easier computing. If you have loaded an entire genome, expect this command to take an hour or more.</p>
 <pre class="r"><code>snpgdsVCF2GDS(vcf.fn,&quot;data.gds&quot;,method =&quot;biallelic.only&quot;)</code></pre>
-<pre><code>## VCF Format ==&gt; SNP GDS Format
+<pre><code>## Start file conversion from VCF to SNP GDS ...
 ## Method: exacting biallelic SNPs
 ## Number of samples: 16
-## Parsing &quot;C:\Users\Joe Receveur\Documents\Virtual Box\Benin\10kbExampleData.vcf&quot; ...
+## Parsing &quot;VCFExampleData.vcf&quot; ...
 ##  import 2148 variants.
 ## + genotype   { Bit2 16x2148, 8.4K } *
 ## Optimize the access efficiency ...
 ## Clean up the fragments of GDS file:
-##     open the file &#39;data.gds&#39; (25.5K)
-##     # of fragments: 39
+##     open the file &#39;data.gds&#39; (22.4K)
+##     # of fragments: 46
 ##     save to &#39;data.gds.tmp&#39;
-##     rename &#39;data.gds.tmp&#39; (25.3K, reduced: 228B)
+##     rename &#39;data.gds.tmp&#39; (22.1K, reduced: 312B)
 ##     # of fragments: 20</code></pre>
 </div>
-<div id="formatting-for-dissimilarity-matrix" class="section level1">
-<h1>Formatting for dissimilarity matrix</h1>
-<p>These commands prepare the data so it is formatted correctly to create a dissimilarity matrix.</p>
+<div id="formatting-for-ibs-matrix" class="section level1">
+<h1>Formatting for IBS matrix</h1>
+<p>These commands prepare the data so it is formatted correctly to create a Identity by State matrix (fraction of identity by state for each pair of samples).</p>
 <pre class="r"><code>genofile&lt;-snpgdsOpen(&quot;data.gds&quot;)
 set.seed(100)
 ibs.hc&lt;-snpgdsHCluster(snpgdsIBS(genofile,num.thread=2, autosome.only=FALSE))</code></pre>
 <pre><code>## Identity-By-State (IBS) analysis on genotypes:
 ## Excluding 46 SNPs (monomorphic: TRUE, MAF: NaN, missing rate: NaN)
-## Working space: 16 samples, 2,102 SNPs
-##     using 2 (CPU) cores
+##     # of samples: 16
+##     # of SNPs: 2,102
+##     using 2 threads
 ## IBS:    the sum of all selected genotypes (0,1,2) = 48494
-## Mon Apr 16 11:40:46 2018    (internal increment: 65536)
+## Thu Aug 06 14:08:39 2020    (internal increment: 65536)
 ## 
-[..................................................]  0%, ETC: ---    
-[==================================================] 100%, completed in 0s
-## Mon Apr 16 11:40:46 2018    Done.</code></pre>
+[..................................................]  0%, ETC: ---        
+[==================================================] 100%, completed, 0s
+## Thu Aug 06 14:08:39 2020    Done.</code></pre>
 </div>
 <div id="turn-the-clustering-into-a-tree-file-and-plotting-tree" class="section level1">
 <h1>Turn the clustering into a tree file and plotting tree</h1>
@@ -383,28 +463,26 @@ ibs.hc&lt;-snpgdsHCluster(snpgdsIBS(genofile,num.thread=2, autosome.only=FALSE))
 <pre class="r"><code>rv &lt;- snpgdsCutTree(ibs.hc)</code></pre>
 <pre><code>## Determine groups by permutation (Z threshold: 15, outlier threshold: 5):
 ## Create 1 groups.</code></pre>
-<pre class="r"><code>plot(rv$dendrogram,main=&quot;Within 10 kb of ACE-1&quot;)</code></pre>
+<pre class="r"><code>plot(rv$dendrogram,main=&quot;Within 10 kb of ACE-1 (IBS)&quot;)</code></pre>
 <p><img src="Phylogeny_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
-<div id="dissimilarity-matrix" class="section level1">
-<h1>Dissimilarity matrix</h1>
-<p>This command creates a dissimilarity matrix between all the samples. If you are looking at the X chromosome, make sure the autosome.only= code is changed to autosome.only=False.</p>
-<pre class="r"><code>dissMatrix  =  snpgdsIBS(genofile , sample.id=NULL, autosome.only=TRUE,remove.monosnp=TRUE,  maf=NaN, missing.rate=NaN, num.thread=2, verbose=TRUE)</code></pre>
-<pre><code>## Identity-By-State (IBS) analysis on genotypes:
+<div id="dissimilarity-matrices" class="section level1">
+<h1>Dissimilarity matrices</h1>
+<p>This command creates an dissimilarity matrix between all the samples. If you are looking at the X chromosome, make sure the autosome.only= code is changed to autosome.only=False.</p>
+<pre class="r"><code>dissMatrix  =  snpgdsDiss(genofile , sample.id=NULL, autosome.only=TRUE,remove.monosnp=TRUE,  maf=NaN, missing.rate=NaN, num.thread=2, verbose=TRUE)</code></pre>
+<pre><code>## Individual dissimilarity analysis on genotypes:
 ## Excluding 0 SNP on non-autosomes
 ## Excluding 46 SNPs (monomorphic: TRUE, MAF: NaN, missing rate: NaN)
-## Working space: 16 samples, 2,102 SNPs
-##     using 2 (CPU) cores
-## IBS:    the sum of all selected genotypes (0,1,2) = 48494
-## Mon Apr 16 11:40:46 2018    (internal increment: 65536)
-## 
-[..................................................]  0%, ETC: ---    
-[==================================================] 100%, completed in 0s
-## Mon Apr 16 11:40:46 2018    Done.</code></pre>
+##     # of samples: 16
+##     # of SNPs: 2,102
+##     using 2 threads
+## Dissimilarity:    the sum of all selected genotypes (0,1,2) = 48494
+## Dissimilarity:   Thu Aug 06 14:08:39 2020    0%
+## Dissimilarity:   Thu Aug 06 14:08:39 2020    100%</code></pre>
 </div>
 <div id="clustering-analysis" class="section level1">
 <h1>Clustering Analysis</h1>
-<p>This step performs a clustering analysis similar to above but with a different equation.The next line creates a tree file based on dissimilarity rather than relatedness.</p>
+<p>This step performs a clustering analysis similar to the IBS analysis above but using dissimilarity. The next line creates a tree file based on dissimilarity rather than relatedness.</p>
 <pre class="r"><code>snpHCluster =  snpgdsHCluster(dissMatrix, sample.id=NULL, need.mat=TRUE, hang=0.01)
 cutTree = snpgdsCutTree(snpHCluster, z.threshold=15, outlier.n=5, n.perm = 5000, samp.group=NULL, 
                         col.outlier=&quot;red&quot;, col.list=NULL, pch.outlier=4, pch.list=NULL,label.H=FALSE, label.Z=TRUE, 
@@ -424,37 +502,37 @@ cutTree = snpgdsCutTree(snpHCluster, z.threshold=15, outlier.n=5, n.perm = 5000,
 ## [1] 5
 ## 
 ## $samp.order
-##  [1] 14  1  3  2  4 16 15  7 11 10  5  6  9 12  8 13
+##  [1]  9 13  8 12 15 11  7 16  5 10  6 14  1  3  2  4
 ## 
 ## $samp.group
-##  [1] G001 G001 G001 G001 G001 G001 G001 G001 G001 G001 G001 G001 G001 G001
-## [15] G001 G001
+##  [1] G001 G001 G001 G001 G001 G001 G001 G001 G001 G001 G001 G001 G001 G001 G001
+## [16] G001
 ## Levels: G001
 ## 
 ## $dmat
-##           G001
-## G001 0.2068935
+##          G001
+## G001 1.039722
 ## 
 ## $dendrogram
-## &#39;dendrogram&#39; with 2 branches and 16 members total, at height 0.2700422 
+## &#39;dendrogram&#39; with 2 branches and 16 members total, at height 1.262116 
 ## 
 ## $merge
 ##            z n1 n2
 ## 1  0.0000000  1  1
-## 2  1.3070571  1  2
-## 3  1.7842348  1  3
-## 4  0.0000000  1  1
-## 5  0.0000000  1  1
-## 6  0.7506769  1  2
-## 7  1.5654121  2  3
-## 8  1.6302752  1  5
-## 9  2.0057114  1  4
-## 10 0.0000000  1  1
-## 11 1.4528401  1  2
-## 12 2.4221257  1  6
-## 13 6.1503264  5  7
-## 14 1.6738589  1  3
-## 15 5.5572832 12  4
+## 2  1.3832952  1  2
+## 3  1.7783401  1  3
+## 4  1.9990924  1  4
+## 5  1.5520638  1  5
+## 6  0.0000000  1  1
+## 7  0.0000000  1  1
+## 8  1.8316610  1  6
+## 9  1.2139331  1  2
+## 10 0.7770847  1  2
+## 11 1.4885736  1  7
+## 12 2.9061354  3  8
+## 13 1.6057339  1  3
+## 14 1.0663228  1 11
+## 15 4.6598993  4 12
 ## 
 ## $clust.count
 ## G001 
@@ -463,17 +541,16 @@ cutTree = snpgdsCutTree(snpHCluster, z.threshold=15, outlier.n=5, n.perm = 5000,
 </div>
 <div id="displaying-a-tree-based-on-dissimilarity" class="section level1">
 <h1>Displaying a tree based on dissimilarity</h1>
-<p>Even though the tree is based on dissimilarity, the closest samples are still the most similar or to be more accurate, least dissimilar.</p>
-<pre class="r"><code>snpgdsDrawTree(cutTree, main = &quot;Phylogenetic Tree&quot;,edgePar=list(col=rgb(0.5,0.5,0.5,0.75),t.col=&quot;black&quot;),
-               y.label.kinship=T,leaflab=&quot;perpendicular&quot;)</code></pre>
+<pre class="r"><code>snpgdsDrawTree(cutTree, main = &quot;Within 10 kb of ACE-1 (Diss)&quot;,edgePar=list(col=rgb(0.5,0.5,0.5,0.75),t.col=&quot;black&quot;),
+               y.label.kinship=T,leaflab=&quot;perpendicular&quot;,yaxis.kinship=F)</code></pre>
 <p><img src="Phylogeny_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="session-info" class="section level1">
 <h1>Session Info</h1>
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>## R version 3.4.2 (2017-09-28)
+<pre><code>## R version 4.0.1 (2020-06-06)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 16299)
+## Running under: Windows 10 x64 (build 18362)
 ## 
 ## Matrix products: default
 ## 
@@ -488,15 +565,17 @@ cutTree = snpgdsCutTree(snpHCluster, z.threshold=15, outlier.n=5, n.perm = 5000,
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ggplot2_2.2.1    SNPRelate_1.12.0 gdsfmt_1.14.0   
+## [1] ggplot2_3.3.2    SNPRelate_1.22.0 gdsfmt_1.24.1   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.13     digest_0.6.12    rprojroot_1.2    plyr_1.8.4      
-##  [5] grid_3.4.2       gtable_0.2.0     backports_1.1.1  magrittr_1.5    
-##  [9] scales_0.5.0     evaluate_0.10.1  rlang_0.1.4      stringi_1.1.5   
-## [13] lazyeval_0.2.1   rmarkdown_1.7    tools_3.4.2      stringr_1.2.0   
-## [17] munsell_0.4.3    yaml_2.1.14      compiler_3.4.2   colorspace_1.3-2
-## [21] htmltools_0.3.6  knitr_1.17       tibble_1.3.4</code></pre>
+##  [1] knitr_1.29       magrittr_1.5     tidyselect_1.1.0 munsell_0.5.0   
+##  [5] colorspace_1.4-1 R6_2.4.1         rlang_0.4.7      dplyr_1.0.1     
+##  [9] stringr_1.4.0    tools_4.0.1      grid_4.0.1       gtable_0.3.0    
+## [13] xfun_0.16        withr_2.2.0      htmltools_0.5.0  ellipsis_0.3.1  
+## [17] yaml_2.2.1       digest_0.6.25    tibble_3.0.3     lifecycle_0.2.0 
+## [21] crayon_1.3.4     purrr_0.3.4      vctrs_0.3.2      glue_1.4.1      
+## [25] evaluate_0.14    rmarkdown_2.3    stringi_1.4.6    compiler_4.0.1  
+## [29] pillar_1.4.6     generics_0.0.2   scales_1.1.1     pkgconfig_2.0.3</code></pre>
 </div>
 
 
@@ -517,6 +596,49 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

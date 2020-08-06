@@ -16,11 +16,12 @@ For more information and ongoing work see our lab page at [Benbow Lab](https://e
 
 [Human Postmortem microbiome database](https://hpmmdatabase.wixsite.com/hpmmdatabase)
 
-#Current annotated tutorials are listed above (16S and SNP data)
+[Environmental Virulence and Pathogenesis in the Amazon](https://www.evopath-amazonia.org/)
+
+#Annotated tutorials and workshops are listed above
 
 - Additional projects and code can be found on our [GitHub page](https://github.com/BenbowLab)
 
-- QIIME2 pipeline coming soon
 
 #Recent Publications
 
