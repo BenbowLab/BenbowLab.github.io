@@ -20,6 +20,8 @@ For a more in depth tutorial of SNPRelate see http://corearray.sourceforge.net/t
 This document was created using Rmarkdown <http://rmarkdown.rstudio.com>.
 
 
+**Thanks to Thomas Quiroz Monnens for catching an error in a previous version of this tutorial! 
+
 ```
 
 #Installing Packages
@@ -69,7 +71,7 @@ ibs.hc<-snpgdsHCluster(snpgdsIBS(genofile,num.thread=2, autosome.only=FALSE))
 This step takes the clustering results from before and turns the numerical values into a dendrogram
 ```{r}
 rv <- snpgdsCutTree(ibs.hc)
-plot(rv$dendrogram,main="Within 10 kb of ACE-1 (IBS)")
+plot(rv$dendrogram,main="Dendrogram based on IBS")
 
 ```
 
@@ -100,7 +102,7 @@ snpgdsClose(genofile)
 #Displaying a tree based on dissimilarity
 
 ```{r}
-snpgdsDrawTree(cutTree, main = "Within 10 kb of ACE-1 (Diss)",edgePar=list(col=rgb(0.5,0.5,0.5,0.75),t.col="black"),
+snpgdsDrawTree(cutTree, main = "Dendrogram based on dissimilarity",edgePar=list(col=rgb(0.5,0.5,0.5,0.75),t.col="black"),
                y.label.kinship=T,leaflab="perpendicular",yaxis.kinship=F)
 ```
 
