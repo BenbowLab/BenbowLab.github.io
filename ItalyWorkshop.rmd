@@ -92,7 +92,7 @@ CombinedData=rarefy_even_depth(CombinedData, 3000, replace = TRUE, trimOTUs = TR
 
 Sampling and methodologies:
 
-The data that we will be are the internal microbiome of aquatic insects from different functional feeding groups at two locations with different riparian conditions (Forest vs Alpine Prairie).
+The data that we will be looking at are the internal microbiome of aquatic insects from different functional feeding groups at two locations with different riparian conditions (Forest vs Alpine Prairie).
 
 ![Locations of sample sites within the Upper Po river](MapOfSampleSites.jpg)
 
