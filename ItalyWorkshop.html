@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="SKaszubinski &amp; JReceveur" />
@@ -73,9 +73,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -89,7 +87,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -194,8 +191,6 @@ $(document).ready(function () {
 });
 </script>
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
 
 <style type="text/css">
@@ -240,6 +235,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -252,48 +248,9 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -307,6 +264,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -342,8 +305,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -352,6 +313,16 @@ div.tocify {
 
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -381,11 +352,11 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="ItalyWorkshop.html">Italy Workshop</a>
+  <a href="ItalyWorkshop.html">16S Workshop</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
+    Other Tutorials
      
     <span class="caret"></span>
   </a>
@@ -414,7 +385,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Italy Stream Microbiome Workshop</h1>
-<h4 class="author"><em>SKaszubinski &amp; JReceveur</em></h4>
+<h4 class="author">SKaszubinski &amp; JReceveur</h4>
 
 </div>
 
@@ -447,7 +418,7 @@ library(dplyr)</code></pre>
 <pre class="r"><code>x&lt;-getURL(&quot;https://raw.githubusercontent.com/BenbowLab/BenbowLab.github.io/master/ItalyStreamMicrobiomeMetadata.csv&quot;)
 metadata&lt;-read.csv(text= x,header=T)
 head(metadata) # To see the variables in the metadata file</code></pre>
-<p>The file containing the sequencing information is too large to directly download into R from Github (1,026 KB). You will have to open a browser to download the data. The first line below will take you to the page with the data. You will see a download button, click that.</p>
+<p>The file containing the sequencing information is too large to directly download into R from Github easily (1,026 KB). You will have to open a browser to download the data. The first line below will take you to the page with the data. You will see a download button, click that.</p>
 <p>After the file is downloaded, run the next line to import the data into R. This command will open a window where you will navigate to the file and click open to select the file and load it into R.</p>
 <pre class="r"><code>browseURL(&quot;https://github.com/BenbowLab/BenbowLab.github.io/blob/master/ItalyInvert2018WTax.biom&quot;)
 biom&lt;-import_biom(file.choose(),parseFunction= parse_taxonomy_greengenes) </code></pre>
@@ -460,7 +431,7 @@ CombinedData=rarefy_even_depth(CombinedData, 3000, replace = TRUE, trimOTUs = TR
 <pre><code>## Please record this for your records so others can reproduce.</code></pre>
 <pre><code>## Try `set.seed(TRUE); .Random.seed` for the full vector</code></pre>
 <pre><code>## ...</code></pre>
-<pre><code>## 550OTUs were removed because they are no longer 
+<pre><code>## 504OTUs were removed because they are no longer 
 ## present in any sample after random subsampling</code></pre>
 <pre><code>## ...</code></pre>
 <div id="data-overview" class="section level2 tabset">
@@ -478,9 +449,9 @@ CombinedData=rarefy_even_depth(CombinedData, 3000, replace = TRUE, trimOTUs = TR
 <p>The data consist of an Operational Taxonomic Unit (OTU) table, sample data, and taxonomy table. The OTU table contains the number of sequence variants. The taxonomy table includes the taxonomy information for each sequence variant, from Kingdom down to Genus. The sample data contains metadata for the study.</p>
 <pre class="r"><code>CombinedData</code></pre>
 <pre><code>## phyloseq-class experiment-level object
-## otu_table()   OTU Table:         [ 2396 taxa and 26 samples ]
+## otu_table()   OTU Table:         [ 2442 taxa and 26 samples ]
 ## sample_data() Sample Data:       [ 26 samples by 8 sample variables ]
-## tax_table()   Taxonomy Table:    [ 2396 taxa by 14 taxonomic ranks ]</code></pre>
+## tax_table()   Taxonomy Table:    [ 2442 taxa by 14 taxonomic ranks ]</code></pre>
 <p>These are the most abundant taxon by functional feeding group and sampling station.</p>
 <pre><code>##   Sampling_station      FFG           Taxon_name N meanWeight        sd
 ## 4           Ostana Shredder Tipula_(Acutitipula) 3   534.9333 425.43289
@@ -500,14 +471,14 @@ CombinedData=rarefy_even_depth(CombinedData, 3000, replace = TRUE, trimOTUs = TR
 <h1>Taxonomic Composition</h1>
 <p>The next section of code filters out bacterial taxa that occured at a low abundance and makes additional files where the samples are group together at different levels (Phylum, Family, Genus).</p>
 <pre class="r"><code>GPr  = transform_sample_counts(CombinedData, function(x) x / sum(x) ) #transform samples based on relative abundance
-GPr = filter_taxa(GPr, function(x) mean(x) &gt; 1e-5, TRUE)
+GPr = filter_taxa(GPr, function(x) mean(x) &gt; 1e-5, TRUE) #Remve very low abundance samples
 PhylumAll=tax_glom(GPr, &quot;Phylum&quot;)# Group samples at the phylum level
 
 PhylumLevel = filter_taxa(PhylumAll, function(x) mean(x) &gt; 1e-2, TRUE) #filter out any taxa lower tha 1%
 FamilyAll=tax_glom(GPr,&quot;Family&quot;)
-FamilyLevel = filter_taxa(FamilyAll, function(x) mean(x) &gt; 2e-2, TRUE) #filter out any taxa lower tha 1%
+FamilyLevel = filter_taxa(FamilyAll, function(x) mean(x) &gt; 2e-2, TRUE) #filter out any taxa lower than 2%
 GenusAll=tax_glom(GPr,&quot;Genus&quot;)
-GenusLevel = filter_taxa(GenusAll, function(x) mean(x) &gt; 2e-2, TRUE) #filter out any taxa lower tha 1%</code></pre>
+GenusLevel = filter_taxa(GenusAll, function(x) mean(x) &gt; 2e-2, TRUE) #filter out any taxa lower than 2%</code></pre>
 <p>The next section of code summarizes the phylum level relative abundance by a variable, in this case Functional feeding group, which we will use to plot the data.</p>
 <pre class="r"><code>df &lt;- psmelt(PhylumLevel)
 df$Abundance=df$Abundance*100
@@ -519,12 +490,12 @@ Trtdata &lt;- ddply(df, c(&quot;Phylum&quot;, &quot;FFG&quot;), summarise,  #To 
 )
 head(Trtdata)</code></pre>
 <pre><code>##           Phylum      FFG N       mean        sd        se
-## 1 Actinobacteria Filterer 4  0.3333333  0.294392 0.1471960
-## 2 Actinobacteria Predator 6  1.3055556  0.383792 0.1566824
-## 3 Actinobacteria  Scraper 9  1.1592593  1.198932 0.3996440
-## 4 Actinobacteria Shredder 7  1.3523810  1.597319 0.6037299
-## 5  Bacteroidetes Filterer 4 22.6500000  4.296812 2.1484060
-## 6  Bacteroidetes Predator 6 32.7777778 10.057936 4.1061351</code></pre>
+## 1 Actinobacteria Filterer 4  0.3583333 0.4085884 0.2042942
+## 2 Actinobacteria Predator 6  1.2888889 0.5467751 0.2232200
+## 3 Actinobacteria  Scraper 9  1.1592593 1.1989321 0.3996440
+## 4 Actinobacteria Shredder 7  1.3857143 1.8113692 0.6846332
+## 5  Bacteroidetes Filterer 4 22.6333333 4.9739320 2.4869660
+## 6  Bacteroidetes Predator 6 33.1388889 9.1587825 3.7390573</code></pre>
 <div id="plotting-phylum-level-relative-bacterial-abundance" class="section level2">
 <h2>Plotting phylum level relative bacterial abundance</h2>
 <p>The next section of code will take the summarized data from above and plot the relative abundance by FFG at the phylum level.</p>
@@ -535,11 +506,11 @@ PhylumLevelPlot</code></pre>
 </div>
 <div id="comparing-alpha-diversity-between-sample-groups" class="section level1">
 <h1>Comparing Alpha diversity between sample groups</h1>
-<p>Shannon and Faith’s Phylogenetic diversity have already been calculated for each sample and are already in the metadata file.</p>
-<p>Faith’s diversity takes into account richness, evenness, as well as the phylogenetic difference between samples. Bacterial species which are further apart on a phylogenetic tree are weighted differently than samples which are closer together.</p>
-<pre class="r"><code>ggplot(metadata,aes(x=FFG,y=shannon,fill=FFG))+ geom_boxplot()</code></pre>
+<p>Shannon and Faith's Phylogenetic diversity have already been calculated for each sample and are already in the metadata file.</p>
+<p>Faith's diversity takes into account richness, evenness, as well as the phylogenetic difference between samples. Bacterial species which are further apart on a phylogenetic tree are weighted differently than samples which are closer together.</p>
+<pre class="r"><code>ggplot(metadata,aes(x=FFG,y=shannon,fill=FFG))+ geom_boxplot()+ylab(&quot;Shannon Diversity&quot;)</code></pre>
 <p><img src="ItalyWorkshop_files/figure-html/unnamed-chunk-14-1.png" width="1344" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(metadata,aes(x=FFG,y=faith_pd,fill=FFG))+ geom_boxplot()</code></pre>
+<pre class="r"><code>ggplot(metadata,aes(x=FFG,y=faith_pd,fill=FFG))+ geom_boxplot()+ylab(&quot;Faith&#39;s PD&quot;)</code></pre>
 <p><img src="ItalyWorkshop_files/figure-html/unnamed-chunk-14-2.png" width="1344" style="display: block; margin: auto;" /></p>
 <div id="splitting-samples-by-site" class="section level2">
 <h2>Splitting samples by site</h2>
@@ -563,10 +534,10 @@ ordplot+ stat_ellipse(type= &quot;norm&quot;,geom = &quot;polygon&quot;, alpha =
 <div id="questions-for-further-understanding" class="section level1">
 <h1>Questions for further understanding</h1>
 <ul>
-<li><p>What happens if you choose a different level to filter out low abundance bacteria before plotting? (e.g. PhylumLevel = filter_taxa(PhylumAll, function(x) mean(x) &gt; 1e-4, TRUE))</p></li>
+<li><p>What happens if you choose a different level to filter out low abundance bacteria before plotting? (e.g. PhylumLevel = filter_taxa(PhylumAll, function(x) mean(x) &gt; 1e-4, TRUE))</p></li>
 <li><p>How would you change the code above to plot the family level relative abundance rather than the phylum level?</p></li>
 <li><p>Do the two locations show the same pattern in alpha diversity by functional feeding group? (Seperate the two locations and plot them both individually)</p></li>
-<li><p>How does using a different distance metric change the beta diversity plots? (e.g chance “jaccard” to “bray”, “gower”)</p></li>
+<li><p>How does using a different distance metric change the beta diversity plots? (e.g using &quot;bray&quot; or &quot;gower&quot; instead of &quot;jaccard&quot;)</p></li>
 </ul>
 </div>
 <div id="other-functions" class="section level1">
@@ -576,8 +547,9 @@ ordplot+ stat_ellipse(type= &quot;norm&quot;,geom = &quot;polygon&quot;, alpha =
 <p>Random forest is a modeling technique which uses machine learning to identify important predictors for groups of samples. It also tests how well the model it creates is able to classify samples based on the data and the variable chosen.</p>
 <pre class="r"><code>#install.packages(&quot;randomForest&quot;)
 #install.packages(&quot;knitr&quot;)
-library(knitr)
-library(randomForest)</code></pre>
+library(knitr)</code></pre>
+<pre><code>## Warning: package &#39;knitr&#39; was built under R version 4.0.2</code></pre>
+<pre class="r"><code>library(randomForest)</code></pre>
 <pre><code>## randomForest 4.6-14</code></pre>
 <pre><code>## Type rfNews() to see new features/changes/bug fixes.</code></pre>
 <pre><code>## 
@@ -599,15 +571,15 @@ print(FeedingGroupForest)#returns overall Random Forest results</code></pre>
 ##  randomForest(formula = response ~ ., data = rf.data, ntree = 1000) 
 ##                Type of random forest: classification
 ##                      Number of trees: 1000
-## No. of variables tried at each split: 13
+## No. of variables tried at each split: 12
 ## 
-##         OOB estimate of  error rate: 7.69%
+##         OOB estimate of  error rate: 3.85%
 ## Confusion matrix:
 ##          Filterer Predator Scraper Shredder class.error
-## Filterer        2        1       0        1         0.5
-## Predator        0        6       0        0         0.0
-## Scraper         0        0       9        0         0.0
-## Shredder        0        0       0        7         0.0</code></pre>
+## Filterer        3        1       0        0        0.25
+## Predator        0        6       0        0        0.00
+## Scraper         0        0       9        0        0.00
+## Shredder        0        0       0        7        0.00</code></pre>
 <pre class="r"><code>imp &lt;- importance(FeedingGroupForest)#all the steps that are imp or imp. are building a dataframe that contains info about the taxa used by the Random Forest testto classify treatment 
 imp &lt;- data.frame(predictors = rownames(imp), imp)
 imp.sort &lt;- arrange(imp, desc(MeanDecreaseGini))
@@ -622,25 +594,42 @@ ggplot(imp.20, aes(x = predictors, y = MeanDecreaseGini)) +
 otunames &lt;- imp.20$predictors
 r &lt;- rownames(tax_table(ForestData)) %in% otunames
 otunames</code></pre>
-<pre><code>##  [1] e32f997a31db6624fc4f67c269121d4c  X2b05a6e9e6c580f7fc168a5bbb29de2d
-##  [3] acccb7cec4d146864bc11d37da55dcd0  ad07e5885874179952e16bf2f7bb57b3 
-##  [5] X43dc593942c5c838cdcb10dac0a39474 b672de3b577f55a4350eabdce0f18904 
-##  [7] dc7d0d97c9604c01c99c972b878e09a0  a42594aa39e8c4b1efb497c275e791ba 
-##  [9] a7c725b951d62e6f6814fb8ca64a356e  a046edb519c4e3cbdf77ada497c4d743 
-## [11] X0fbb434b42e7241efa6451d8f1b429d0 X6b78b6e57cad2b7f9420cee2c46db2aa
-## [13] X773e5b14f70020c477e1302bcdc8289b ef53cef3b90f7b7b0189b52eaf440bfd 
-## [15] X1036caae06a5e5c605ab8120e5b5b7bc edb114398ced5bf958f4f404493a6642 
-## [17] X1e994910b44683e96c37da4cd04862a4 X07705f7fffe33ad226eab098040fbb75
-## [19] X5e419280ad42e77b964625f286da0f08 c22b16cc6108c04f29fea3b6d4c81571 
-## [21] ee705bbea43c68a47a9c2ba41efa2067  de46410fbc643aeaed03d6aa3878d71a 
-## [23] X7403bfa23d688a94b469051d9f13ae5f
-## 170 Levels: e32f997a31db6624fc4f67c269121d4c ...</code></pre>
+<pre><code>##  [1] acccb7cec4d146864bc11d37da55dcd0  X2b05a6e9e6c580f7fc168a5bbb29de2d
+##  [3] ad07e5885874179952e16bf2f7bb57b3  a7c725b951d62e6f6814fb8ca64a356e 
+##  [5] X4367180b0dc40f77a063355ebab6a4bb X0fbb434b42e7241efa6451d8f1b429d0
+##  [7] b672de3b577f55a4350eabdce0f18904  dc7d0d97c9604c01c99c972b878e09a0 
+##  [9] X43dc593942c5c838cdcb10dac0a39474 a046edb519c4e3cbdf77ada497c4d743 
+## [11] X5ba8d1715c2080f633d2e3de3ddae03a e32f997a31db6624fc4f67c269121d4c 
+## [13] X1036caae06a5e5c605ab8120e5b5b7bc X1e994910b44683e96c37da4cd04862a4
+## [15] X07705f7fffe33ad226eab098040fbb75 X6b78b6e57cad2b7f9420cee2c46db2aa
+## [17] X237f7729fcc16a8a864b826f36f307c3 d945dd1c4d20347007f6d0c0d0ec581e 
+## [19] ee705bbea43c68a47a9c2ba41efa2067  X5e419280ad42e77b964625f286da0f08
+## [21] X6ea12a2a6eb7f0d377858aaeca4664e4 X33d90d9f698362388259881cb6ec497c
+## [23] de46410fbc643aeaed03d6aa3878d71a 
+## 165 Levels: acccb7cec4d146864bc11d37da55dcd0 ...</code></pre>
 <pre class="r"><code>PredictorTable&lt;-kable(tax_table(ForestData)[r, ])#returns a list of the most important predictors for Random Forest Classification
 PredictorTable</code></pre>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col width="17%" />
+<col width="5%" />
+<col width="8%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="8%" />
+<col width="4%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th></th>
+<th align="left"></th>
 <th align="left">Kingdom</th>
 <th align="left">Phylum</th>
 <th align="left">Class</th>
@@ -659,7 +648,7 @@ PredictorTable</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td>e32f997a31db6624fc4f67c269121d4c</td>
+<td align="left">e32f997a31db6624fc4f67c269121d4c</td>
 <td align="left">Bacteria</td>
 <td align="left">Bacteroidetes</td>
 <td align="left">Cytophagia</td>
@@ -676,7 +665,7 @@ PredictorTable</code></pre>
 <td align="left">NA</td>
 </tr>
 <tr class="even">
-<td>a42594aa39e8c4b1efb497c275e791ba</td>
+<td align="left">d945dd1c4d20347007f6d0c0d0ec581e</td>
 <td align="left">Bacteria</td>
 <td align="left">Deferribacteres</td>
 <td align="left">Deferribacteres</td>
@@ -693,24 +682,7 @@ PredictorTable</code></pre>
 <td align="left">NA</td>
 </tr>
 <tr class="odd">
-<td>ef53cef3b90f7b7b0189b52eaf440bfd</td>
-<td align="left">Bacteria</td>
-<td align="left">Bacteroidetes</td>
-<td align="left">Cytophagia</td>
-<td align="left">Cytophagales</td>
-<td align="left">Cytophagaceae</td>
-<td align="left">Runella</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td>ee705bbea43c68a47a9c2ba41efa2067</td>
+<td align="left">ee705bbea43c68a47a9c2ba41efa2067</td>
 <td align="left">Bacteria</td>
 <td align="left">Armatimonadetes</td>
 <td align="left">Armatimonadia</td>
@@ -726,8 +698,8 @@ PredictorTable</code></pre>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-<tr class="odd">
-<td>de46410fbc643aeaed03d6aa3878d71a</td>
+<tr class="even">
+<td align="left">de46410fbc643aeaed03d6aa3878d71a</td>
 <td align="left">Bacteria</td>
 <td align="left">Verrucomicrobia</td>
 <td align="left">Verrucomicrobiae</td>
@@ -743,8 +715,8 @@ PredictorTable</code></pre>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-<tr class="even">
-<td>dc7d0d97c9604c01c99c972b878e09a0</td>
+<tr class="odd">
+<td align="left">dc7d0d97c9604c01c99c972b878e09a0</td>
 <td align="left">Bacteria</td>
 <td align="left">Firmicutes</td>
 <td align="left">Clostridia</td>
@@ -760,8 +732,8 @@ PredictorTable</code></pre>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-<tr class="odd">
-<td>a046edb519c4e3cbdf77ada497c4d743</td>
+<tr class="even">
+<td align="left">a046edb519c4e3cbdf77ada497c4d743</td>
 <td align="left">Bacteria</td>
 <td align="left">Proteobacteria</td>
 <td align="left">Betaproteobacteria</td>
@@ -777,8 +749,8 @@ PredictorTable</code></pre>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-<tr class="even">
-<td>b672de3b577f55a4350eabdce0f18904</td>
+<tr class="odd">
+<td align="left">b672de3b577f55a4350eabdce0f18904</td>
 <td align="left">Bacteria</td>
 <td align="left">Proteobacteria</td>
 <td align="left">Gammaproteobacteria</td>
@@ -794,8 +766,8 @@ PredictorTable</code></pre>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-<tr class="odd">
-<td>acccb7cec4d146864bc11d37da55dcd0</td>
+<tr class="even">
+<td align="left">acccb7cec4d146864bc11d37da55dcd0</td>
 <td align="left">Bacteria</td>
 <td align="left">Proteobacteria</td>
 <td align="left">Betaproteobacteria</td>
@@ -811,8 +783,8 @@ PredictorTable</code></pre>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-<tr class="even">
-<td>a7c725b951d62e6f6814fb8ca64a356e</td>
+<tr class="odd">
+<td align="left">a7c725b951d62e6f6814fb8ca64a356e</td>
 <td align="left">Bacteria</td>
 <td align="left">Firmicutes</td>
 <td align="left">Clostridia</td>
@@ -828,8 +800,8 @@ PredictorTable</code></pre>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-<tr class="odd">
-<td>ad07e5885874179952e16bf2f7bb57b3</td>
+<tr class="even">
+<td align="left">ad07e5885874179952e16bf2f7bb57b3</td>
 <td align="left">Bacteria</td>
 <td align="left">Bacteroidetes</td>
 <td align="left">Cytophagia</td>
@@ -845,59 +817,11 @@ PredictorTable</code></pre>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-<tr class="even">
-<td>c22b16cc6108c04f29fea3b6d4c81571</td>
-<td align="left">Bacteria</td>
-<td align="left">Proteobacteria</td>
-<td align="left">Gammaproteobacteria</td>
-<td align="left">Pseudomonadales</td>
-<td align="left">Moraxellaceae</td>
-<td align="left">Acinetobacter</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr class="odd">
-<td>edb114398ced5bf958f4f404493a6642</td>
-<td align="left">Bacteria</td>
-<td align="left">Bacteroidetes</td>
-<td align="left">[Saprospirae]</td>
-<td align="left">[Saprospirales]</td>
-<td align="left">Saprospiraceae</td>
-<td align="left">Haliscomenobacter</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td>##Statistical testing</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
 </tbody>
 </table>
+</div>
+<div id="statistical-testing" class="section level2">
+<h2>Statistical testing</h2>
 <p>There are a wide variety of statistical test that can be used to compare microbiome data. Below we will show an example of comparing beta diveristy using a PERMANOVA test.</p>
 <p>This test will test whether the variablility within groups is significantly different (Are one group of samples more similar to each other than a different group.</p>
 <div id="variance-in-beta-diversity" class="section level3">
@@ -912,8 +836,8 @@ permutest(beta)</code></pre>
 ## 
 ## Response: Distances
 ##           Df   Sum Sq   Mean Sq      F N.Perm Pr(&gt;F)  
-## Groups     3 0.045187 0.0150623 3.9473    999  0.018 *
-## Residuals 22 0.083949 0.0038159                       
+## Groups     3 0.045819 0.0152730 3.9334    999  0.014 *
+## Residuals 22 0.085424 0.0038829                       
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code>boxplot(beta)</code></pre>
@@ -935,11 +859,11 @@ adonis(GPdist ~ FFG*Sampling_station, as(sample_data(CombinedData), &quot;data.f
 ## Terms added sequentially (first to last)
 ## 
 ##                      Df SumsOfSqs MeanSqs F.Model      R2 Pr(&gt;F)    
-## FFG                   3    3.0469 1.01564  3.0303 0.26943  0.001 ***
-## Sampling_station      1    0.7069 0.70691  2.1092 0.06251  0.002 ** 
-## FFG:Sampling_station  2    1.1868 0.59342  1.7706 0.10495  0.001 ***
-## Residuals            19    6.3680 0.33516         0.56311           
-## Total                25   11.3087                 1.00000           
+## FFG                   3    3.0623 1.02075  3.0631 0.27091  0.001 ***
+## Sampling_station      1    0.7067 0.70674  2.1208 0.06252  0.001 ***
+## FFG:Sampling_station  2    1.2032 0.60158  1.8052 0.10644  0.001 ***
+## Residuals            19    6.3316 0.33324         0.56013           
+## Total                25   11.3038                 1.00000           
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
@@ -964,6 +888,49 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

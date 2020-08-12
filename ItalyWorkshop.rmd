@@ -64,7 +64,7 @@ head(metadata) # To see the variables in the metadata file
 
 
 
-The file containing the sequencing information is too large to directly download into R from Github (1,026 KB). You will have to open a browser to download the data. The first line below will take you to the page with the data. You will see a download button, click that.   
+The file containing the sequencing information is too large to directly download into R from Github easily (1,026 KB). You will have to open a browser to download the data. The first line below will take you to the page with the data. You will see a download button, click that.   
 
 After the file is downloaded, run the next line to import the data into R. This command will open a window where you will navigate to the file and click open to select the file and load it into R.
 ```{r,eval=F}
@@ -130,14 +130,14 @@ The next section of code filters out bacterial taxa that occured at a low abunda
 
 ```{r}
 GPr  = transform_sample_counts(CombinedData, function(x) x / sum(x) ) #transform samples based on relative abundance
-GPr = filter_taxa(GPr, function(x) mean(x) > 1e-5, TRUE)
+GPr = filter_taxa(GPr, function(x) mean(x) > 1e-5, TRUE) #Remve very low abundance samples
 PhylumAll=tax_glom(GPr, "Phylum")# Group samples at the phylum level
 
 PhylumLevel = filter_taxa(PhylumAll, function(x) mean(x) > 1e-2, TRUE) #filter out any taxa lower tha 1%
 FamilyAll=tax_glom(GPr,"Family")
-FamilyLevel = filter_taxa(FamilyAll, function(x) mean(x) > 2e-2, TRUE) #filter out any taxa lower tha 1%
+FamilyLevel = filter_taxa(FamilyAll, function(x) mean(x) > 2e-2, TRUE) #filter out any taxa lower than 2%
 GenusAll=tax_glom(GPr,"Genus")
-GenusLevel = filter_taxa(GenusAll, function(x) mean(x) > 2e-2, TRUE) #filter out any taxa lower tha 1%
+GenusLevel = filter_taxa(GenusAll, function(x) mean(x) > 2e-2, TRUE) #filter out any taxa lower than 2%
 
 ```
 
@@ -175,9 +175,9 @@ Faith's diversity takes into account richness, evenness, as well as the phylogen
 
 ```{r}
 
-ggplot(metadata,aes(x=FFG,y=shannon,fill=FFG))+ geom_boxplot()
+ggplot(metadata,aes(x=FFG,y=shannon,fill=FFG))+ geom_boxplot()+ylab("Shannon Diversity")
 
-ggplot(metadata,aes(x=FFG,y=faith_pd,fill=FFG))+ geom_boxplot()
+ggplot(metadata,aes(x=FFG,y=faith_pd,fill=FFG))+ geom_boxplot()+ylab("Faith's PD")
 
 ```
 
@@ -216,7 +216,7 @@ ordplot+ stat_ellipse(type= "norm",geom = "polygon", alpha = 1/4, aes(fill = FFG
 - Do the two locations show the same pattern in alpha diversity by functional feeding group? (Seperate the two locations and plot them both individually)
 
 
-- How does using a different distance metric change the beta diversity plots? (e.g  chance "jaccard" to "bray", "gower")
+- How does using a different distance metric change the beta diversity plots? (e.g  using "bray" or "gower" instead of "jaccard")
 
 #Other functions
 ##Random Forest
@@ -254,6 +254,7 @@ PredictorTable
 
 
 ```
+
 ##Statistical testing 
 
 There are a wide variety of statistical test that can be used to compare microbiome data. Below we will show an example of comparing beta diveristy using a PERMANOVA test.
