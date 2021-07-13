@@ -1,0 +1,88 @@
+#conda init qiime2-2020.11 #Initialize conda env of QIIME ****Check QIIME for updates****
+
+
+
+#####################
+#Import
+#####################
+#Import paired ends reads
+qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path Raw --input-format CasavaOneEightSingleLanePerSampleDirFmt --output-path demux-paired-end.qza
+#Build summary to pick filtering parameters
+qiime demux summarize --i-data demux-paired-end.qza --o-visualization demux.qzv
+#The demux file will show a summary of your samples, either view using view.qiime2.org or qiime tools view demux.qzv
+#Also in this file will be shown your quality scores by read length, this can be used to pick a forward and reverse truncation length (--p-trunc-len-r and --p-trunc-len-f in the DADA2 command below)
+
+
+
+##################
+#DADA2 filtering #For more info on filtering see: https://benjjneb.github.io/dada2/tutorial.html
+##################
+
+qiime dada2 denoise-paired --i-demultiplexed-seqs demux-paired-end.qza --o-representative-sequences rep-seqs.qza --o-table table.qza --p-trunc-len-f 240 --p-trunc-len-r 140 --o-denoising-stats denoising-stats --p-n-threads 0\
+
+#################
+#Removing singletons and building tree
+#################
+#Remove features with only a single read
+qiime feature-table filter-features --i-table rep-seqs.qza --p-min-frequency 2 --o-filtered-table table.qza\
+
+#Summarize features using metadata categories
+qiime feature-table summarize --i-table table.qza --o-visualization table.qzv --m-sample-metadata-file BmozMetadataCombinedApr2021.txt\
+qiime feature-table tabulate-seqs --i-data uchime-dn-out/rep-seqs-nonchimeric-wo-borderline.qza --o-visualization rep-seqs.qzv\
+
+#Build phylogenetic tree
+qiime alignment mafft --i-sequences uchime-dn-out/rep-seqs-nonchimeric-wo-borderline.qza --o-alignment aligned-rep-seqs.qza\
+qiime alignment mask --i-alignment aligned-rep-seqs.qza --o-masked-alignment masked-aligned-rep-seqs.qza\
+qiime phylogeny fasttree --i-alignment masked-aligned-rep-seqs.qza --o-tree unrooted-tree.qza\
+qiime phylogeny midpoint-root --i-tree unrooted-tree.qza --o-rooted-tree rooted-tree.qza\
+
+#Create a graph showing alpha diversity (Observed richness, Shannon diversity, and Faith's phylogenetic diversity)
+#Max depth indicates the largest number of reads for which results will be calculated (i.e. where the graph will end
+qiime diversity alpha-rarefaction --i-table table.qza --i-phylogeny rooted-tree.qza --p-max-depth 4000 --m-metadata-file BmozMetadataCombinedApr2021.txt --o-visualization alpha-rarefaction.qzv\
+
+
+#####################
+#Feature Classifier
+#####################
+#Assign taxonomy to your samples by comparing them to a reference database (in this case SILVA (v 13.8)
+qiime feature-classifier classify-sklearn --i-classifier silva-138-99-515-806-nb-classifier.qza --i-reads uchime-dn-out/rep-seqs-nonchimeric-wo-borderline.qza --o-classification taxonomy.qza --p-n-jobs -1\
+
+qiime metadata tabulate --m-input-file taxonomy.qza --o-visualization taxonomy.qzv\
+
+
+qiime tools export --input-path taxonomy.qza  --output-path taxonomy-with-spaces \
+qiime metadata tabulate  --m-input-file taxonomy-with-spaces/taxonomy.tsv --o-visualization taxonomy-as-metadata.qzv\
+qiime tools export --input-path taxonomy-as-metadata.qzv --output-path taxonomy-as-metadata\
+qiime tools import --type 'FeatureData[Taxonomy]' --input-path taxonomy-as-metadata/metadata.tsv   --output-path taxonomy-without-spaces.qza\
+
+##################
+#Filter out mitochondria and chloroplast
+##################
+qiime taxa filter-table --i-table table.qza  --i-taxonomy taxonomy.qza --p-exclude mitochondria,chloroplast --o-filtered-table Filteredtable.qza\
+
+
+#################
+#Rarefaction and beta diversity
+#################
+#Rarefaction will subsample your reads to the desired level so all samples have the same number of reads(e.g., if a sample has 20,000 reads, it will reduce it to the sampling depth) (see alpha rarefaction plot to determine what number of reads alpha diversity stabilizes at)
+#Rarefied to 10k
+
+
+#Calculate sample statistics between groups (e.g., alpha and beta diversity) and rarefy to the desired level
+qiime diversity core-metrics-phylogenetic  --i-phylogeny rooted-tree.qza --i-table Filteredtable.qza --p-sampling-depth 10000 --m-metadata-file BmozMetadataCombinedApr2021.txt --output-dir core-metrics-results\
+   
+qiime diversity alpha-group-significance --i-alpha-diversity core-metrics-results/shannon_vector.qza  --m-metadata-file BmozMetadataCombinedApr2021.txt --o-visualization core-metrics-results/shannon-group-significance.qzv\
+
+qiime diversity alpha-group-significance  --i-alpha-diversity core-metrics-results/evenness_vector.qza   --m-metadata-file BmozMetadataCombinedApr2021.txt --o-visualization core-metrics-results/evenness-group-significance.qzv\
+
+qiime diversity alpha-group-significance  --i-alpha-diversity core-metrics-results/faith_pd_vector.qza  --m-metadata-file BmozMetadataCombinedApr2021.txt --o-visualization core-metrics-results/faith-pd-group-significance.qzv
+
+##############
+#Export files so they can be used in other programs (.qza and .qzv are QIIME specific formats)
+#############
+qiime tools export --input-path unrooted-tree.qza --output-path exported/
+
+qiime tools export --input-path core-metrics-results/rarefied_table.qza --output-path exported 
+
+qiime tools export --input-path taxonomy.qza --output-path exported
+
